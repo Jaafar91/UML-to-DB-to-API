@@ -1,0 +1,2 @@
+docker-compose -f mysql.yml up
+/opt/mssql-tools/bin/sqlcmd -S localhost -U root -P 'root' -i whatsup.sql
