@@ -12,3 +12,7 @@ entity user{
   last_name :    varchar(100)
   date_of_birth: date
 }
+
+- Database Connection
+- pyodbc library
+- Run "pip install pyodbc"

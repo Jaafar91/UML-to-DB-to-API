@@ -1,4 +1,5 @@
 import re
+import pyodbc
 
 NAME="example1"
 TARGET_DB_LANGUAGE_EXTENSION='sql'
@@ -12,10 +13,11 @@ def readDesign():
     indexes=countTables(result)
     allTables=parseTables(result,indexes)
     finalResult="\n".join(generateDDL(allTables))
-    f = open(DDL_FILE_NAME, "a")
+    f = open(DDL_FILE_NAME, "w")
     f.write(finalResult)
     f.close()
-    print()
+    print(finalResult)
+    return DDL_FILE_NAME
 
 def generateDDL(allTables):
     ddls = []
@@ -78,5 +80,21 @@ def isValid(line):
         return False
     return True
     
+def createTables(scriptName):
+    lines = open(scriptName).read()
+    conn = pyodbc.connect('Driver={SQL Server};'
+                      'Server=localhost,1475;'
+                      'Database=ddaa;'
+                      'UID=SA;'
+                      'PWD=Abc@1234;'
+                      'Trusted_Connection=no;')
+    cursor = conn.cursor()
+    cursor.execute(lines)
+    conn.commit()
+    conn.close()
+    print("done")
 
-readDesign()
+
+scriptName = readDesign()
+
+createTables(scriptName)

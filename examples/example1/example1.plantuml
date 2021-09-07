@@ -1,5 +1,5 @@
 @startuml
-entity user{
+entity testers{
   *id : int
   --
   first_name :   varchar(100)
