@@ -3,9 +3,12 @@ import pyodbc
 
 NAME="example1"
 TARGET_DB_LANGUAGE_EXTENSION='sql'
+TARGET_APY_LANGUAGE_EXTENSION='py'
 DESIGN_FILE_NAME="%s.plantuml"%(NAME)
 DDL_FILE_NAME=".\\out\ddl\%s.%s"%(NAME,TARGET_DB_LANGUAGE_EXTENSION)
-CREATE_TABLE="CREATE TABLE %s (\n%s\n);\n"
+API_FILE_NAME=".\\out\\api\%s.%s"%("api",TARGET_APY_LANGUAGE_EXTENSION)
+CREATE_TABLE="DROP TABLE IF EXISTS %s;\nCREATE TABLE %s (\n%s\n);\n"
+TABLES_NAMES=[]
 
 def readDesign():
     lines = open(DESIGN_FILE_NAME).read().split('\n')
@@ -30,7 +33,9 @@ def generateDDL(allTables):
             elif line.startswith("}") == False:
                 row = getColumn(replaceIndexes(line))
                 rows.append(row)
-        ddls.append(CREATE_TABLE %(tableName,",\n".join(rows)))
+        ddls.append(CREATE_TABLE %(tableName,tableName,",\n".join(rows)))
+        TABLES_NAMES.append(tableName)
+    print(TABLES_NAMES)
     return ddls
                 
 def getColumn(line):
@@ -82,19 +87,58 @@ def isValid(line):
     
 def createTables(scriptName):
     lines = open(scriptName).read()
-    conn = pyodbc.connect('Driver={SQL Server};'
-                      'Server=localhost,1475;'
-                      'Database=ddaa;'
-                      'UID=SA;'
-                      'PWD=Abc@1234;'
-                      'Trusted_Connection=no;')
+    conn = getConnection()
     cursor = conn.cursor()
     cursor.execute(lines)
     conn.commit()
     conn.close()
-    print("done")
+    print("Database Done")
+
+def defineFlask():
+    lines=[]
+    lines.append("import pyodbc\nfrom flask import Flask\napp = Flask(__name__)\n")
+    lines.append("def getConnection():")
+    lines.append("\treturn pyodbc.connect('Driver={SQL Server};''Server=localhost,1475;''Database=ddaa;''UID=SA;''PWD=Abc@1234;''Trusted_Connection=no;')\n")
+    lines.append(getFromDdaa())
+    lines.append("if __name__ == '__main__':\n\tapp.run(debug=True)")
+    return "\n".join(lines)
+
+def getFromDdaa():
+    apis=[]
+    for table in TABLES_NAMES:
+        lines =[]
+        lines.append('@app.route("/%s")\ndef getAll():'%(table))
+        lines.append("\tconn = getConnection()")
+        lines.append("\tcursor = conn.cursor()")
+        lines.append("\tcursor.execute('SELECT * FROM %s')"%(table))
+        lines.append("\trows = []")
+        lines.append("\tfor row in cursor.fetchall():")
+        lines.append("\t\trows.append(row)")
+        #lines.append("\treturn rows\n")
+        lines.append("\treturn 'Number of rows:%s'%(len(rows))\n")
+        apis.append("\n".join(lines))
+    return "\n".join(apis)
+
+def createApi():
+    api = defineFlask();
+    print(API_FILE_NAME)
+    f = open(API_FILE_NAME, "w")
+    f.write(api)
+    f.close()
+    print("API Done")
+
+def getConnection():
+    return pyodbc.connect('Driver={SQL Server};''Server=localhost,1475;''Database=ddaa;''UID=SA;''PWD=Abc@1234;''Trusted_Connection=no;')
 
 
+def readAll():
+    conn = getConnection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM %s"%("testers"))
+    for row in cursor.fetchall():
+        print(row)
+        
 scriptName = readDesign()
-
 createTables(scriptName)
+createApi()
+readAll()
