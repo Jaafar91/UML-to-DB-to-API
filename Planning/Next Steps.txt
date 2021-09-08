@@ -1,0 +1,22 @@
+Planning
+
+Design
+- Forigen Key
+
+Database
+- Primary Key
+
+
+API
+- Generic Response
+- HTTP Metohd
+- Path paramater
+- Query paramater
+- Header
+- Authentication
+
+
+Others
+- Connection String
+- Refactor the code
+- Split the python file in multiple files
