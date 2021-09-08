@@ -1,2 +1,5 @@
-examples\**\out\api\api.py
-examples\**\out\ddl\example1.sql
+examples/*/out/api/api.py
+examples/*/out/ddl/*.sql
+examples/*/out/api/api.py
+examples/example2/out/api/api.py
+examples/example2/main/__pycache__/

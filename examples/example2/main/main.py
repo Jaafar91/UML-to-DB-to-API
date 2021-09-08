@@ -8,6 +8,7 @@ TARGET_APY_LANGUAGE_EXTENSION='py'
 DESIGN_FILE_NAME="..\\%s.plantuml"%(NAME)
 DDL_FILE_NAME="..\\out\ddl\%s.%s"%(NAME,TARGET_DB_LANGUAGE_EXTENSION)
 API_FILE_NAME="..\\out\\api\%s.%s"%("api",TARGET_APY_LANGUAGE_EXTENSION)
+TEMPLATE_FILE_NAME="..\\templates\\api-route.py"
 
 #print sql script
 outputTables=readDesign(DESIGN_FILE_NAME,DDL_FILE_NAME)
@@ -16,4 +17,4 @@ outputTables=readDesign(DESIGN_FILE_NAME,DDL_FILE_NAME)
 createTables(DDL_FILE_NAME)
 
 #create API
-createApi(outputTables,API_FILE_NAME)
+createApi(outputTables,API_FILE_NAME,TEMPLATE_FILE_NAME,"'GET','POST'")
