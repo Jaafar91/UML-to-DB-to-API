@@ -54,6 +54,7 @@ def generateDDL(allTables):
     ddls = []
     for table in allTables:    
         rows = []
+        cols=[]
         for line in table:
             row = ""
             if line.startswith("entity"):
@@ -61,8 +62,9 @@ def generateDDL(allTables):
             elif line.startswith("}") == False:
                 row = replaceIndexes(line)
                 rows.append(row)
+                cols.append(row.split(' ')[0])
         ddls.append(CREATE_TABLE %(tableName,tableName,",\n".join(rows)))
-        TABLES_NAMES.append(tableName)
+        TABLES_NAMES.append({'table':tableName,'cols':cols})
     return ddls
                 
 def getTableName(line):

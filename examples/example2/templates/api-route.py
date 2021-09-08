@@ -12,6 +12,18 @@ def getAll():
 		for row in cursor.fetchall():
 			apiResponse["data"]["${ROUTE_NAME}"].append(dict(zip(columns, row)))
 	elif request.method == 'POST':
-		return "test"
+		req = request.get_json()
+		keys=[]
+		values=[]
+		for item in req:
+			keys.append(item)
+			values.append("'"+str(req[item])+"'")
+		apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
+		apiResponse={"meta":apiResponseMeta}
+		conn = getConnection()
+		cursor = conn.cursor()
+		cursor.execute("insert into ${ROUTE_NAME}(%s) values (%s)"%(','.join(keys),','.join(values)))
+		conn.commit()
+		return apiResponse
 
 	return apiResponse

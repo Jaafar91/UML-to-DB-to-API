@@ -1,3 +1,4 @@
+import json
 import pyodbc
 from flask import Flask,request
 app = Flask(__name__)
@@ -19,7 +20,19 @@ def getAll():
 		for row in cursor.fetchall():
 			apiResponse["data"]["animals"].append(dict(zip(columns, row)))
 	elif request.method == 'POST':
-		return "test"
+		req = request.get_json()
+		keys=[]
+		values=[]
+		for item in req:
+			keys.append(item)
+			values.append("'"+str(req[item])+"'")
+		apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
+		apiResponse={"meta":apiResponseMeta}
+		conn = getConnection()
+		cursor = conn.cursor()
+		cursor.execute("insert into animals(%s) values (%s)"%(','.join(keys),','.join(values)))
+		conn.commit()
+		return apiResponse
 
 	return apiResponse
 if __name__ == '__main__':
