@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
 
-  ddaa_db:
+  uda_db:
     container_name: ${CONTAINER_NAME}
     build: ""
     ports:
