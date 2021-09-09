@@ -1,6 +1,6 @@
-from ddaa_uml_parser import *
-from ddaa_database import *
-from ddaa_api import *
+from uda_uml_parser import *
+from uda_database import *
+from uda_api import *
 
 NAME="example2"
 TARGET_DB_LANGUAGE_EXTENSION='sql'

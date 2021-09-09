@@ -1,0 +1,2 @@
+docker-compose -f mysql.yml up
+/var/run/mysqld -S localhost -U root -P 'root' -i whatsup.sql

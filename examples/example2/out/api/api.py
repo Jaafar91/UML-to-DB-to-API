@@ -4,7 +4,7 @@ from flask import Flask,request
 app = Flask(__name__)
 
 def getConnection():
-	return pyodbc.connect('Driver={SQL Server};''Server=localhost,1475;''Database=ddaa;''UID=SA;''PWD=Abc@1234;''Trusted_Connection=no;')
+	return pyodbc.connect('Driver={SQL Server};''Server=localhost,1475;''Database=uda;''UID=SA;''PWD=Abc@1234;''Trusted_Connection=no;')
 
 @app.route("/animals",methods = ['GET','POST'])
 def animals_getAll():
