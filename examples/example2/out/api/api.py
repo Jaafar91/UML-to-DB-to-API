@@ -35,5 +35,32 @@ def getAll():
 		return apiResponse
 
 	return apiResponse
+
+@app.route("/animals/<id>",methods = ['GET'])
+def getOne(id):
+	
+	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
+	apiResponse={"meta":apiResponseMeta,"data":{}}
+	conn = getConnection()
+	cursor = conn.cursor()
+	cursor.execute("SELECT * FROM animals WHERE id = '%s'"%(id))
+	rows=[]
+	columns = [column[0] for column in cursor.description]
+	for row in cursor.fetchall():
+		apiResponse["data"]=dict(zip(columns, row))
+	
+	return apiResponse
+
+@app.route("/animals/<id>",methods = ['DELETE'])
+def deleteOne(id):
+
+	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
+	apiResponse={"meta":apiResponseMeta}
+	conn = getConnection()
+	cursor = conn.cursor()
+	cursor.execute("DELETE FROM animals WHERE id = '%s'"%(id))
+	conn.commit()
+
+	return apiResponse
 if __name__ == '__main__':
 	app.run(debug=True)
