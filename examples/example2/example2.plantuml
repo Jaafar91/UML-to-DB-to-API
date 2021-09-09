@@ -7,4 +7,13 @@ entity animals{
   location: varchar(100)
   date_of_birth: date
 }
+
+entity cages{
+  *id : int
+  --
+  size :    varchar(100)
+  type :    varchar(100)
+  location: varchar(100)
+  company:  varchar(100)
+}
 @enduml

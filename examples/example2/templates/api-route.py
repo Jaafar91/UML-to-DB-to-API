@@ -1,5 +1,5 @@
 @app.route("/${ROUTE_NAME}",methods = ['GET','POST'])
-def getAll():
+def ${ROUTE_NAME}_getAll():
 	if request.method == 'GET':
 		apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 		apiResponseData={"${ROUTE_NAME}":[]}
@@ -29,7 +29,7 @@ def getAll():
 	return apiResponse
 
 @app.route("/${ROUTE_NAME}/<${ROUTE_UNIQUE}>",methods = ['GET'])
-def getOne(${ROUTE_UNIQUE}):
+def ${ROUTE_NAME}_getOne(${ROUTE_UNIQUE}):
 	
 	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 	apiResponse={"meta":apiResponseMeta,"data":{}}
@@ -44,7 +44,7 @@ def getOne(${ROUTE_UNIQUE}):
 	return apiResponse
 
 @app.route("/${ROUTE_NAME}/<${ROUTE_UNIQUE}>",methods = ['DELETE'])
-def deleteOne(${ROUTE_UNIQUE}):
+def ${ROUTE_NAME}_deleteOne(${ROUTE_UNIQUE}):
 
 	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 	apiResponse={"meta":apiResponseMeta}
