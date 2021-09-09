@@ -7,6 +7,6 @@ def getApiTemplate(templateFileName,table,methods):
         if line.find("${ROUTE_NAME}") > -1:
             line = line.replace("${ROUTE_NAME}",table["table"])
         if line.find("${ROUTE_UNIQUE}") > -1:
-            line=line.replace("${ROUTE_UNIQUE}",table['cols'][0])
+            line=line.replace("${ROUTE_UNIQUE}",table['key'])
         destLines.append(line)
     return destLines
