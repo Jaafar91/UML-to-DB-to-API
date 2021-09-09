@@ -5,10 +5,14 @@ TABLES_NAMES=[]
 
 def readDesign(designFileName,ddlFileName):
     lines = open(designFileName).read().split('\n')
+    #print("\n\nlines:"+"\n".join(lines))
     result =removeUnused(lines)
+    #print("\n\nresult:"+"\n".join(result))
     indexes=countTables(result)
     allTables=parseTables(result,indexes)
+    #print(allTables)
     finalResult="\n".join(generateDDL(allTables))
+    #print(finalResult)
     f = open(ddlFileName, "w")
     f.write(finalResult)
     f.close()
@@ -59,6 +63,10 @@ def generateDDL(allTables):
             row = ""
             if line.startswith("entity"):
                 tableName=getTableName(line)
+            elif line.startswith("*"):
+                row = replaceIndexes(line)
+                rows.append(row+" NOT NULL PRIMARY KEY")
+                cols.append(row.split(' ')[0])
             elif line.startswith("}") == False:
                 row = replaceIndexes(line)
                 rows.append(row)
