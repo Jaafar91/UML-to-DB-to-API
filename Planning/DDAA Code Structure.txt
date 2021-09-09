@@ -1,8 +1,0 @@
-- Split the python file in multiple files
-
-Items:
-* Database connections
-* Query executions
-* Parsing UML functions
-* API Response
-* API templats

@@ -1,1 +1,1 @@
-/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Abc@1234' -i ddaa.sql
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Abc@1234' -i uda.sql
