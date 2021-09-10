@@ -1,10 +1,11 @@
 import json
 import pyodbc
 from flask import Flask,request
+from api_database_connection import *
 app = Flask(__name__)
 
-def getConnection():
-	return pyodbc.connect('Driver={SQL Server};''Server=localhost,1475;''Database=uda;''UID=SA;''PWD=Abc@1234;''Trusted_Connection=no;')
+DatabaseType='SQL SERVER'
+ConnectionString='Driver={SQL Server};Server=localhost,1475;Database=uda;UID=SA;PWD=Abc@1234;Trusted_Connection=no;'
 
 @app.route("/animals",methods = ['GET','POST'])
 def animals_getAll():
@@ -12,7 +13,7 @@ def animals_getAll():
 		apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 		apiResponseData={"animals":[]}
 		apiResponse={"meta":apiResponseMeta,"data":apiResponseData}
-		conn = getConnection()
+		conn = getConnection(DatabaseType,ConnectionString)
 		cursor = conn.cursor()
 		cursor.execute('SELECT * FROM animals')
 		rows=[]
@@ -28,7 +29,7 @@ def animals_getAll():
 			values.append("'"+str(req[item])+"'")
 		apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 		apiResponse={"meta":apiResponseMeta}
-		conn = getConnection()
+		conn = getConnection(DatabaseType,ConnectionString)
 		cursor = conn.cursor()
 		cursor.execute("insert into animals(%s) values (%s)"%(','.join(keys),','.join(values)))
 		conn.commit()
@@ -41,7 +42,7 @@ def animals_getOne(id):
 	
 	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 	apiResponse={"meta":apiResponseMeta,"data":{}}
-	conn = getConnection()
+	conn = getConnection(DatabaseType,ConnectionString)
 	cursor = conn.cursor()
 	cursor.execute("SELECT * FROM animals WHERE id = '%s'"%(id))
 	rows=[]
@@ -56,7 +57,7 @@ def animals_deleteOne(id):
 
 	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 	apiResponse={"meta":apiResponseMeta}
-	conn = getConnection()
+	conn = getConnection(DatabaseType,ConnectionString)
 	cursor = conn.cursor()
 	cursor.execute("DELETE FROM animals WHERE id = '%s'"%(id))
 	conn.commit()
@@ -68,7 +69,7 @@ def cages_getAll():
 		apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 		apiResponseData={"cages":[]}
 		apiResponse={"meta":apiResponseMeta,"data":apiResponseData}
-		conn = getConnection()
+		conn = getConnection(DatabaseType,ConnectionString)
 		cursor = conn.cursor()
 		cursor.execute('SELECT * FROM cages')
 		rows=[]
@@ -84,7 +85,7 @@ def cages_getAll():
 			values.append("'"+str(req[item])+"'")
 		apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 		apiResponse={"meta":apiResponseMeta}
-		conn = getConnection()
+		conn = getConnection(DatabaseType,ConnectionString)
 		cursor = conn.cursor()
 		cursor.execute("insert into cages(%s) values (%s)"%(','.join(keys),','.join(values)))
 		conn.commit()
@@ -97,7 +98,7 @@ def cages_getOne(id):
 	
 	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 	apiResponse={"meta":apiResponseMeta,"data":{}}
-	conn = getConnection()
+	conn = getConnection(DatabaseType,ConnectionString)
 	cursor = conn.cursor()
 	cursor.execute("SELECT * FROM cages WHERE id = '%s'"%(id))
 	rows=[]
@@ -112,7 +113,7 @@ def cages_deleteOne(id):
 
 	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 	apiResponse={"meta":apiResponseMeta}
-	conn = getConnection()
+	conn = getConnection(DatabaseType,ConnectionString)
 	cursor = conn.cursor()
 	cursor.execute("DELETE FROM cages WHERE id = '%s'"%(id))
 	conn.commit()

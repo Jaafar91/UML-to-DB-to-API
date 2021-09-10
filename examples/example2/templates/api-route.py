@@ -4,7 +4,7 @@ def ${ROUTE_NAME}_getAll():
 		apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 		apiResponseData={"${ROUTE_NAME}":[]}
 		apiResponse={"meta":apiResponseMeta,"data":apiResponseData}
-		conn = getConnection()
+		conn = getConnection(DatabaseType,ConnectionString)
 		cursor = conn.cursor()
 		cursor.execute('SELECT * FROM ${ROUTE_NAME}')
 		rows=[]
@@ -20,7 +20,7 @@ def ${ROUTE_NAME}_getAll():
 			values.append("'"+str(req[item])+"'")
 		apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 		apiResponse={"meta":apiResponseMeta}
-		conn = getConnection()
+		conn = getConnection(DatabaseType,ConnectionString)
 		cursor = conn.cursor()
 		cursor.execute("insert into ${ROUTE_NAME}(%s) values (%s)"%(','.join(keys),','.join(values)))
 		conn.commit()
@@ -33,7 +33,7 @@ def ${ROUTE_NAME}_getOne(${ROUTE_UNIQUE}):
 	
 	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 	apiResponse={"meta":apiResponseMeta,"data":{}}
-	conn = getConnection()
+	conn = getConnection(DatabaseType,ConnectionString)
 	cursor = conn.cursor()
 	cursor.execute("SELECT * FROM ${ROUTE_NAME} WHERE ${ROUTE_UNIQUE} = '%s'"%(${ROUTE_UNIQUE}))
 	rows=[]
@@ -48,7 +48,7 @@ def ${ROUTE_NAME}_deleteOne(${ROUTE_UNIQUE}):
 
 	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
 	apiResponse={"meta":apiResponseMeta}
-	conn = getConnection()
+	conn = getConnection(DatabaseType,ConnectionString)
 	cursor = conn.cursor()
 	cursor.execute("DELETE FROM ${ROUTE_NAME} WHERE ${ROUTE_UNIQUE} = '%s'"%(${ROUTE_UNIQUE}))
 	conn.commit()

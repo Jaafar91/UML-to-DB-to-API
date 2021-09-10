@@ -11,7 +11,7 @@ def getApiTemplate(table,routeTemplateFileName):
         destLines.append(line)
     return destLines
 
-def getMainApiTemplate(tables,mainTemplateFileName,routeTemplateFileName):
+def getMainApiTemplate(tables,mainTemplateFileName,routeTemplateFileName,dbType,connectionString):
     lines = open(mainTemplateFileName).read().split('\n')
     apis=[]
     for table in tables:
@@ -20,5 +20,9 @@ def getMainApiTemplate(tables,mainTemplateFileName,routeTemplateFileName):
     for line in lines:
         if line.find("${API_ROUTES}") > -1:
             line = line.replace("${API_ROUTES}","\n".join(apis))
+        if line.find("${DB_TYPE}") > -1:
+            line=line.replace("${DB_TYPE}",dbType)
+        if line.find("${CONNECTION_STRING}") > -1:
+            line=line.replace("${CONNECTION_STRING}",connectionString)
         destLines.append(line)
     return "\n".join(destLines)
