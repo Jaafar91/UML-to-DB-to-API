@@ -53,3 +53,7 @@ In initital phase, my target is running a python script that creates a running a
 
     > pip install pyodbc
 
+# Run the API
+- Navigate to python path or add the python path to the environment variables and run this command  
+    
+    > python "..\examples\example1\out\api\api.py"
