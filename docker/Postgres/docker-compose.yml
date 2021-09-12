@@ -2,12 +2,12 @@ version: '3.1'
 
 services:
 
-  uda_postgress_db:
+  uda_db:
     container_name: ${CONTAINER_NAME}
     build: ""
     ports:
-      - 1475:1433/tcp
+      - 1480:5433/tcp
     environment:
       ACCEPT_EULA: ${MSSQL_SA_LICENCE_AGREEMENT}
-      SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       MSSQL_AGENT_ENABLED: ${MSSQL_AGENT_ENABLED}

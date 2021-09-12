@@ -9,7 +9,7 @@ def createTables(scriptName,dbType,connectionString):
     conn.close()
 
 def getConnection(dbType,connectionString):
-    if dbType == "SQL SERVER":
+    if dbType == "SQL SERVER" or dbType == "POSTGRES":
         return pyodbc.connect(connectionString)
     else:
         return 0

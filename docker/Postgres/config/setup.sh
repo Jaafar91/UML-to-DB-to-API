@@ -1,1 +1,1 @@
-/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Abc@1234' -i uda.sql
+/usr/lib/postgresql/9.4/bin/psql -h localhost -U SA -e root -f -a uda.sql
