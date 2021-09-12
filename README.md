@@ -32,3 +32,24 @@ In initital phase, my target is running a python script that creates a running a
 - The connection string can be changed from the main file 'examples/example2/main/main.py'
 - The docker folder has ready image to run SQL Server that matches the connection string
 
+# UML file
+
+- Each table should start with word "enitity"
+- The format of each column is "column_name: data type"
+- The primary key column name starts with *
+- The primary key column should be the first line and followed by "--" line
+- example
+> entity user{
+  *id : int
+  --
+  first_name :   varchar(100)
+  last_name :    varchar(100)
+  date_of_birth: date
+}
+
+# Python Libraries
+
+- Database Connection
+- pyodbc library
+- Run "pip install pyodbc"
+
