@@ -34,9 +34,9 @@ In initital phase, my target is running a python script that creates a running a
 
 # UML file
 - Each table should start with word `enitity`
-- The format of each column is "column_name: data type"
-- The primary key column name starts with *
-- The primary key column should be the first line and followed by "--" line
+- The format of each column is `column_name: data type`
+- The primary key column name starts with `*`
+- The primary key column should be the first line and followed by `--` line
 - example
 ```
  entity user{
@@ -50,7 +50,6 @@ In initital phase, my target is running a python script that creates a running a
 
 # Python Libraries
 
-- Database Connection
-- pyodbc library
-- Run "pip install pyodbc"
+- pyodbc library 
+> pip install pyodbc
 
