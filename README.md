@@ -29,11 +29,11 @@ In initital phase, my target is running a python script that creates a running a
     - API code that can be run and consumed by any API client, e.g Postman
 
 # Useful Paths
-- The connection string can be changed from the main file 'examples/example2/main/main.py'
+- The connection string can be changed from the main file `examples/example2/main/main.py`
 - The docker folder has ready image to run SQL Server that matches the connection string
 
 # UML file
-- Each table should start with word "enitity"
+- Each table should start with word `enitity`
 - The format of each column is "column_name: data type"
 - The primary key column name starts with *
 - The primary key column should be the first line and followed by "--" line
