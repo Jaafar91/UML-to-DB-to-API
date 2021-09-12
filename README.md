@@ -57,3 +57,17 @@ In initital phase, my target is running a python script that creates a running a
 - Navigate to python path or add the python path to the environment variables and run this command  
     
     > python "..\examples\example1\out\api\api.py"
+
+# Run MSSQL Docker
+- NAvigate to MSSQL folder from your command line `..\docker\MSSQL`
+- Run docker-compose build
+
+    > docker-compose build
+    
+    > docker-compose up
+
+- Somtimes it does not work with the above commands and will require to do it start it manually by executing this command:
+
+    > docker exec -it <containerName> "bash"
+
+- Then run the commands inside the `..\docker\MSSQL\config\setup.sh`
