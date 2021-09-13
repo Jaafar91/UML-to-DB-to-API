@@ -11,14 +11,14 @@ NAME=os.getenv('PLANTUML_NAME')
 DATABASE_TYPE=os.getenv('DATABASE_TYPE')
 CONNECTION_STRING=os.getenv('CONNECTION_STRING')
 TARGET_DB_LANGUAGE_EXTENSION='sql'
-TARGET_APY_LANGUAGE_EXTENSION='py'
+TARGET_API_LANGUAGE_EXTENSION=os.getenv('TARGET_API_LANGUAGE_EXTENSION')
 DESIGN_FILE_NAME="..\\%s.plantuml"%(NAME)
 DDL_FILE_NAME="..\\out\ddl\%s.%s"%(NAME,TARGET_DB_LANGUAGE_EXTENSION)
-API_FILE_NAME="..\\out\\api\%s.%s"%("api",TARGET_APY_LANGUAGE_EXTENSION)
+API_FILE_NAME="..\\out\\api\%s.%s"%("api",TARGET_API_LANGUAGE_EXTENSION)
 DB_API_PATH="..\\out\\api\\api_database_connection.py"
-MAIN_TEMPLATE_FILE_NAME="..\\templates\\api-main.py"
-ROUTE_TEMPLATE_FILE_NAME="..\\templates\\api-route.py"
-DB_TEMPLATE_FILE_NAME="..\\templates\\api_database_connection.py"
+MAIN_TEMPLATE_FILE_NAME="..\\templates\\%s\\api-main.py"%(TARGET_API_LANGUAGE_EXTENSION)
+ROUTE_TEMPLATE_FILE_NAME="..\\templates\\\%s\api-route.py"%(TARGET_API_LANGUAGE_EXTENSION)
+DB_TEMPLATE_FILE_NAME="..\\templates\\%s\\api_database_connection.py"%(TARGET_API_LANGUAGE_EXTENSION)
 
 #print sql script
 outputTables=readDesign(DESIGN_FILE_NAME,DDL_FILE_NAME)
