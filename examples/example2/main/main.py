@@ -1,13 +1,15 @@
+import os
+from dotenv import load_dotenv
 from uda_uml_parser import *
 from uda_database import *
 from uda_api import *
 from shutil import copyfile
 
-NAME="example2"
-#DATABASE_TYPE="SQL SERVER"
-#CONNECTION_STRING='Driver={SQL Server};''Server=localhost,1475;''Database=uda;''UID=SA;''PWD=Abc@1234;''Trusted_Connection=no;'
-DATABASE_TYPE="POSTGRES"
-CONNECTION_STRING='DRIVER={PostgreSQL ODBC Driver(UNICODE)};''SERVER=localhost;''PORT=5433;''DATABASE=uda;''UID=postgres;''PWD=root;'
+load_dotenv()
+
+NAME=os.getenv('PLANTUML_NAME')
+DATABASE_TYPE=os.getenv('DATABASE_TYPE')
+CONNECTION_STRING=os.getenv('CONNECTION_STRING')
 TARGET_DB_LANGUAGE_EXTENSION='sql'
 TARGET_APY_LANGUAGE_EXTENSION='py'
 DESIGN_FILE_NAME="..\\%s.plantuml"%(NAME)
@@ -18,7 +20,6 @@ MAIN_TEMPLATE_FILE_NAME="..\\templates\\api-main.py"
 ROUTE_TEMPLATE_FILE_NAME="..\\templates\\api-route.py"
 DB_TEMPLATE_FILE_NAME="..\\templates\\api_database_connection.py"
 
-print(pyodbc.drivers())
 #print sql script
 outputTables=readDesign(DESIGN_FILE_NAME,DDL_FILE_NAME)
 

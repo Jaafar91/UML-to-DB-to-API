@@ -29,7 +29,7 @@ In initital phase, my target is running a python script that creates a running a
     - API code that can be run and consumed by any API client, e.g Postman
 
 # Useful Paths
-- The connection string can be changed from the main file `examples/example2/main/main.py`
+- The connection string can be changed from the .env file `examples/example2/main/.env`
 - The docker folder has ready image to run SQL Server that matches the connection string
 
 # UML file
@@ -52,6 +52,8 @@ In initital phase, my target is running a python script that creates a running a
 - pyodbc library 
 
     > pip install pyodbc
+
+    > pip install python-dotenv
 
 # Run the API
 - Navigate to python path or add the python path to the environment variables and run this command  
