@@ -53,6 +53,7 @@ In initital phase, my target is running a python script that creates a running a
 
     > pip install pyodbc
 
+-
     > pip install python-dotenv
 
 # Run the API
