@@ -1,6 +1,4 @@
 examples/**/out/api/
-examples/*/out/ddl/*.sql
-examples/*/out/api/api.py
-examples/example2/out/api/api.py
+examples/*/out/ddl/
 __pycache__/
 .vscode/
