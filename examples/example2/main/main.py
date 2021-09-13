@@ -45,16 +45,18 @@ elif TARGET_API_LANGUAGE_EXTENSION == "java":
     MAIN_TEMPLATE_FILE_NAME="..\\templates\\%s\\Application.java"%(TARGET_API_LANGUAGE_EXTENSION)
     MAIN_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\Application.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
     
-    ROUTE_TEMPLATE_FILE_NAME="..\\templates\\%s\\HelloController.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    ROUTE_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\HelloController.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    ROUTE_TEMPLATE_FILE_NAME="..\\templates\\%s\\RouteController.java"%(TARGET_API_LANGUAGE_EXTENSION)
+    ROUTE_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\${ROUTE_NAME}Controller.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
 
-    if not os.path.exists(PACKAGE_DIRECTORY):
-        os.makedirs(PACKAGE_DIRECTORY)
+    prepareJavaAPI(
+        PACKAGE_DIRECTORY,
+        POM_TEMPLATE_FILE_PATH,
+        POM_API_FILE_PATH,
+        MAIN_TEMPLATE_FILE_NAME,
+        MAIN_API_FILE_NAME,
+        ROUTE_TEMPLATE_FILE_NAME,
+        ROUTE_API_FILE_NAME,
+        outputTables,
+    )
     
-    copyfile(POM_TEMPLATE_FILE_PATH, POM_API_FILE_PATH)
-    copyfile(MAIN_TEMPLATE_FILE_NAME, MAIN_API_FILE_NAME)
-    copyfile(ROUTE_TEMPLATE_FILE_NAME, ROUTE_API_FILE_NAME)
-    replaceJava(POM_API_FILE_PATH,{})
-    replaceJava(MAIN_API_FILE_NAME,{})
-    replaceJava(ROUTE_API_FILE_NAME,outputTables[0])
-
+    

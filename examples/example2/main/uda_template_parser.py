@@ -1,5 +1,6 @@
 import re
 import os
+from shutil import copyfile
 
 def getApiTemplate(table,routeTemplateFileName):
     lines = open(routeTemplateFileName).read().split('\n')
@@ -34,6 +35,8 @@ def replaceJava(path,table):
     for line in lines:
         if line.find("${ROUTE_NAME}") > -1:
             line = line.replace("${ROUTE_NAME}",table["table"])
+        if line.find("${ROUTE_NAME_CAPITALIZE}") > -1:
+            line = line.replace("${ROUTE_NAME_CAPITALIZE}",table["table"].capitalize())
         if line.find("${PACKAGE}") > -1:
             line = line.replace("${PACKAGE}",os.getenv('PACKAGE'))
         if line.find("${ARTIFACT_NAME}") > -1:
@@ -42,3 +45,27 @@ def replaceJava(path,table):
     f = open(path, "w")
     f.write("\n".join(destLines))
     f.close()
+
+def prepareJavaAPI(
+    PACKAGE_DIRECTORY,
+    POM_TEMPLATE_FILE_PATH,
+    POM_API_FILE_PATH,
+    MAIN_TEMPLATE_FILE_NAME,
+    MAIN_API_FILE_NAME,
+    ROUTE_TEMPLATE_FILE_NAME,
+    ROUTE_API_FILE_NAME,
+    tables):
+
+    if not os.path.exists(PACKAGE_DIRECTORY):
+        os.makedirs(PACKAGE_DIRECTORY)
+
+    copyfile(POM_TEMPLATE_FILE_PATH, POM_API_FILE_PATH)
+    copyfile(MAIN_TEMPLATE_FILE_NAME, MAIN_API_FILE_NAME)
+    
+    replaceJava(POM_API_FILE_PATH,{})
+    replaceJava(MAIN_API_FILE_NAME,{})
+
+    for table in tables:
+        copyfile(ROUTE_TEMPLATE_FILE_NAME, ROUTE_API_FILE_NAME.replace("${ROUTE_NAME}",table["table"].capitalize()))
+        replaceJava(ROUTE_API_FILE_NAME.replace("${ROUTE_NAME}",table["table"].capitalize()),table)
+    
