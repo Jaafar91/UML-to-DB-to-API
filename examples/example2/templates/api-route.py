@@ -54,3 +54,20 @@ def ${ROUTE_NAME}_deleteOne(${ROUTE_UNIQUE}):
 	conn.commit()
 
 	return apiResponse
+
+@app.route("/${ROUTE_NAME}/<${ROUTE_UNIQUE}>",methods = ['PUT'])
+def ${ROUTE_NAME}_updateOne(${ROUTE_UNIQUE}):
+
+	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
+	apiResponse={"meta":apiResponseMeta}
+	req = request.get_json()
+	itemsToBeUpdated=[]
+	for item in req:
+		itemsToBeUpdated.append(item+"="+"'"+str(req[item])+"'")
+	print(",".join(itemsToBeUpdated))
+	conn = getConnection(DatabaseType,ConnectionString)
+	cursor = conn.cursor()
+	cursor.execute("UPDATE ${ROUTE_NAME} SET %s WHERE ${ROUTE_UNIQUE} = '%s'"%(",".join(itemsToBeUpdated),${ROUTE_UNIQUE}))
+	conn.commit()
+
+	return apiResponse
