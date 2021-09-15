@@ -1,0 +1,10 @@
+com\uda\examples\model\AnimalEntity.class
+com\uda\examples\Application.class
+com\uda\examples\model\Animal$AnimalBuilder.class
+com\uda\examples\mapper\AnimalsMapper.class
+com\uda\examples\controller\AnimalsController.class
+com\uda\examples\controller\CagesController.class
+com\uda\examples\model\Animal.class
+com\uda\examples\service\AnimalService.class
+com\uda\examples\repository\AnimalRepository.class
+com\uda\examples\config\ExampleDBConfig.class

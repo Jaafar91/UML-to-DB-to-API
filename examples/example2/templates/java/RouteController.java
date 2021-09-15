@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ${ROUTE_NAME_CAPITALIZE}Controller {
 
     @GetMapping("/${ROUTE_NAME}")
-    public String test() {
+    public String getAll() {
         return "hello UDA";
     }
 

@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://${db_host:localhost:1475};databaseName=${db_name:uda};sendTimeAsDateTime=false;queryTimeout=${queryTimeout:10}
+    jdbc-url: ${spring.datasource.url}
+    username: ${db_username:SA}
+    password: ${db_password:Abc@1234}
+    platform: mssql
+  jpa:
+    database: default
+    show-sql: false
+    properties:
+      hibernate:
+        proc:
+          param_null_passing: true
