@@ -101,11 +101,18 @@ def prepareJavaAPI(
     if not os.path.exists(config["package"]+"//config"):
         os.makedirs(config["package"]+"//config")    
 
+
     copyfile(config["pom"]["template"], config["pom"]["target"])
-    copyfile(config["application"]["template"], config["application"]["target"])
-    
     replaceJava(config["pom"]["target"],{})
+    
+    copyfile(config["application"]["template"], config["application"]["target"])
     replaceJava(config["application"]["target"],{})
+
+    copyfile(config["meta"]["template"], config["meta"]["target"])
+    replaceJava(config["meta"]["target"],{})
+
+    copyfile(config["genericResponse"]["template"], config["genericResponse"]["target"])
+    replaceJava(config["genericResponse"]["target"],{})
 
     for table in tables:
         copyfile(config["controller"]["template"], config["controller"]["target"].replace("${ROUTE_NAME}",table["table"].capitalize()))
@@ -126,14 +133,8 @@ def prepareJavaAPI(
         copyfile(config["mapper"]["template"], config["mapper"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
         replaceJava(config["mapper"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
 
-        copyfile(config["meta"]["template"], config["meta"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
-        replaceJava(config["meta"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
-
         copyfile(config["data"]["template"], config["data"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
-        replaceJava(config["data"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
-
-        copyfile(config["genericResponse"]["template"], config["genericResponse"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
-        replaceJava(config["genericResponse"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
+        replaceJava(config["data"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)        
 
         copyfile(config["responseMapper"]["template"], config["responseMapper"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
         replaceJava(config["responseMapper"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
