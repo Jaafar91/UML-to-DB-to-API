@@ -45,10 +45,40 @@ def replaceJava(path,table):
             line = line.replace("${PACKAGE}",os.getenv('PACKAGE'))
         if line.find("${ARTIFACT_NAME}") > -1:
             line=line.replace("${ARTIFACT_NAME}",os.getenv('ARTIFACT_NAME'))
+        if line.find("${ENTITY_ID}") > -1:
+            line=line.replace("${ENTITY_ID}","private int %s;"%(table["key"]))
+        if line.find("${ENTITY_OTHER_COLUMNS}") > -1:
+            entityLines=[]
+            for col in table['cols']:
+                if col["name"] != table["key"]:
+                    entityLines.append("private %s %s;"%(convertDatabaseDataTypeToJaveDateType(col["dataType"]),col["name"]))
+            
+            line=line.replace("${ENTITY_OTHER_COLUMNS}","\n\n\t".join(entityLines))    
+        if line.find("${MODEL_COLUMNS}") > -1:
+            modelLines=[]
+            for col in table['cols']:
+                modelLines.append("private %s %s;"%(convertDatabaseDataTypeToJaveDateType(col["dataType"]),col["name"]))
+            
+            line=line.replace("${MODEL_COLUMNS}","\n\n\t".join(modelLines))    
+        if line.find("${MAPPER_BODY}") > -1:
+            mapperLines=[]
+            for col in table['cols']:
+                mapperLines.append(".%s(%sEntity.get%s())"%(col["name"],table["table"],col["name"].capitalize()))
+            
+            line=line.replace("${MAPPER_BODY}","\n\t\t\t\t".join(mapperLines))    
+            
         destLines.append(line)
     f = open(path, "w")
     f.write("\n".join(destLines))
     f.close()
+
+def convertDatabaseDataTypeToJaveDateType(dataType):
+    if dataType.upper().startswith("VARCHAR"):
+        return "String"
+    elif dataType.upper().startswith("DATE"):
+        return "Date"
+    elif dataType.upper() == ("INT"):
+        return "int"
 
 def prepareJavaAPI(
     config,

@@ -59,20 +59,27 @@ def generateDDL(allTables):
     for table in allTables:    
         rows = []
         cols=[]
+        
         key = ''
         for line in table:
+            col={}
             row = ""
             if line.startswith("entity"):
                 tableName=getTableName(line)
             elif line.startswith("*"):
                 row = replaceIndexes(line)
                 rows.append(row+" NOT NULL PRIMARY KEY")
-                key = row.split(' ')[0]
-                cols.append(key)
+                col["name"]=row.split(' ')[0]
+                col["dataType"]= row.split(' ')[len(row.split(' '))-1]
+                cols.append(col)
+                key=col["name"]
             elif line.startswith("}") == False:
                 row = replaceIndexes(line)
                 rows.append(row)
-                cols.append(row.split(' ')[0])
+                print(row)
+                col["name"]=row.split(' ')[0]
+                col["dataType"]= row.split(' ')[len(row.split(' '))-1]
+                cols.append(col)
         ddls.append(CREATE_TABLE %(tableName,tableName,",\n".join(rows)))
         TABLES_NAMES.append({'table':tableName,'cols':cols,'key':key})
     return ddls
