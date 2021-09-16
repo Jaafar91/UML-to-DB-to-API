@@ -2,3 +2,4 @@ examples/**/out/api/
 examples/*/out/ddl/
 __pycache__/
 .vscode/
+.idea/
