@@ -66,16 +66,33 @@ elif TARGET_API_LANGUAGE_EXTENSION == "java":
     REPO_TEMPLATE_FILE_NAME="..\\templates\\%s\\Repository.java"%(TARGET_API_LANGUAGE_EXTENSION)
     REPO_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\repository\\${SINGLE_ROUTE_NAME_CAPITALIZE}Repository.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
 
-    obj = {"controller":{"template":ROUTE_TEMPLATE_FILE_NAME,"target":ROUTE_API_FILE_NAME},
+    META_TEMPLATE_FILE_NAME="..\\templates\\%s\\Meta.java"%(TARGET_API_LANGUAGE_EXTENSION)
+    META_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\model\\Meta.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+
+    DATA_TEMPLATE_FILE_NAME="..\\templates\\%s\\Data.java"%(TARGET_API_LANGUAGE_EXTENSION)
+    DATA_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\model\\${SINGLE_ROUTE_NAME_CAPITALIZE}Data.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+
+    GEN_RESPONSE_TEMPLATE_FILE_NAME="..\\templates\\%s\\GenericResponse.java"%(TARGET_API_LANGUAGE_EXTENSION)
+    GEN_RESPONSE_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\model\\GenericResponse.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+
+    RESPONSE_MAPPER_TEMPLATE_FILE_NAME="..\\templates\\%s\\GenericResponseMapper.java"%(TARGET_API_LANGUAGE_EXTENSION)
+    RESPONSE_MAPPER_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\mapper\\GenericResponseMapper.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    
+    obj = {
     "pom":{"template":POM_TEMPLATE_FILE_PATH,"target":POM_API_FILE_PATH},
     "package": PACKAGE_DIRECTORY,
     "application": {"template":MAIN_TEMPLATE_FILE_NAME,"target":MAIN_API_FILE_NAME},
     "config": {"template":CONFIG_TEMPLATE_FILE_NAME,"target":CONFIG_API_FILE_NAME},
+    "controller":{"template":ROUTE_TEMPLATE_FILE_NAME,"target":ROUTE_API_FILE_NAME},
     "service": {"template":SERVICE_TEMPLATE_FILE_NAME,"target":SERVICE_API_FILE_NAME},
     "entity": {"template":ENITITY_TEMPLATE_FILE_NAME,"target":ENITITY_API_FILE_NAME},
     "model": {"template":MODEL_TEMPLATE_FILE_NAME,"target":MODEL_API_FILE_NAME},
     "mapper": {"template":MAPPER_TEMPLATE_FILE_NAME,"target":MAPPER_API_FILE_NAME},
-    "repository": {"template":REPO_TEMPLATE_FILE_NAME,"target":REPO_API_FILE_NAME}
+    "repository": {"template":REPO_TEMPLATE_FILE_NAME,"target":REPO_API_FILE_NAME},
+    "meta": {"template":META_TEMPLATE_FILE_NAME,"target":META_API_FILE_NAME},
+    "data": {"template":DATA_TEMPLATE_FILE_NAME,"target":DATA_API_FILE_NAME},
+    "genericResponse": {"template":GEN_RESPONSE_TEMPLATE_FILE_NAME,"target":GEN_RESPONSE_API_FILE_NAME},
+    "responseMapper": {"template":RESPONSE_MAPPER_TEMPLATE_FILE_NAME,"target":RESPONSE_MAPPER_API_FILE_NAME}
     }
     prepareJavaAPI(
         obj,

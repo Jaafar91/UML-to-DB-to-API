@@ -1,7 +1,7 @@
 package ${PACKAGE}.service;
 
-import ${PACKAGE}.mapper.${SINGLE_ROUTE_NAME_CAPITALIZE}Mapper;
-import ${PACKAGE}.model.${SINGLE_ROUTE_NAME_CAPITALIZE};
+import ${PACKAGE}.mapper.*;
+import ${PACKAGE}.model.*;
 import ${PACKAGE}.entity.${SINGLE_ROUTE_NAME_CAPITALIZE}Entity;
 import ${PACKAGE}.repository.${SINGLE_ROUTE_NAME_CAPITALIZE}Repository;
 import lombok.AllArgsConstructor;
@@ -16,9 +16,13 @@ public class ${SINGLE_ROUTE_NAME_CAPITALIZE}Service {
 
     private final ${SINGLE_ROUTE_NAME_CAPITALIZE}Repository ${SINGLE_ROUTE_NAME}Repository;
     private final ${SINGLE_ROUTE_NAME_CAPITALIZE}Mapper ${SINGLE_ROUTE_NAME}Mapper;
+    private final GenericResponseMapper genericResponseMapper;
 
-    public List<${SINGLE_ROUTE_NAME_CAPITALIZE}> getAll() {
-        return ${SINGLE_ROUTE_NAME}Repository.findAll().stream()
-                .map(x -> ${SINGLE_ROUTE_NAME}Mapper.map(x)).collect(Collectors.toList());
+    public GenericResponse getAll() {
+        return genericResponseMapper.map(
+            null,
+            ${SINGLE_ROUTE_NAME_CAPITALIZE}Data.builder().${SINGLE_ROUTE_NAME}(
+                ${SINGLE_ROUTE_NAME}Repository.findAll().stream().map(x -> ${SINGLE_ROUTE_NAME}Mapper.map(x)).collect(Collectors.toList())
+            ).build());
     }
 }

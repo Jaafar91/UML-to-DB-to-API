@@ -126,6 +126,18 @@ def prepareJavaAPI(
         copyfile(config["mapper"]["template"], config["mapper"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
         replaceJava(config["mapper"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
 
+        copyfile(config["meta"]["template"], config["meta"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
+        replaceJava(config["meta"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
+
+        copyfile(config["data"]["template"], config["data"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
+        replaceJava(config["data"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
+
+        copyfile(config["genericResponse"]["template"], config["genericResponse"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
+        replaceJava(config["genericResponse"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
+
+        copyfile(config["responseMapper"]["template"], config["responseMapper"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
+        replaceJava(config["responseMapper"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
+
         copyfile(config["config"]["template"], config["config"]["target"].replace("${ROUTE_NAME}",table["table"].capitalize()))
         replaceJava(config["config"]["target"].replace("${ROUTE_NAME}",table["table"].capitalize()),table)
     
