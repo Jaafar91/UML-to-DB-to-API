@@ -1,4 +1,4 @@
-package com.uda.examples.config;
+package ${PACKAGE}.config;
 
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,8 +23,8 @@ import java.util.Map;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", transactionManagerRef = "transactionManager", basePackages = {"com.uda.examples"})
-public class ExampleDBConfig {
+@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", transactionManagerRef = "transactionManager", basePackages = {"${PACKAGE}"})
+public class DBConfig {
 
     @Primary
     @Bean(name = "dataSource")
@@ -44,7 +44,7 @@ public class ExampleDBConfig {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         LocalContainerEntityManagerFactoryBean factory = builder
                 .dataSource(dataSource)
-                .packages("com.uda.examples.model")
+                .packages("${PACKAGE}.entity")
                 .persistenceUnit("transfers")
                 .properties(getJPAProperties())
                 .build();

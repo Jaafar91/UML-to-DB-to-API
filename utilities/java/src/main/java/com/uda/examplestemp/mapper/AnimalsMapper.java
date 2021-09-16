@@ -1,7 +1,7 @@
-package com.uda.examples.mapper;
+package com.uda.examplestemp.mapper;
 
-import com.uda.examples.model.Animal;
-import com.uda.examples.model.AnimalEntity;
+import com.uda.examplestemp.model.Animal;
+import com.uda.examplestemp.model.AnimalEntity;
 import org.springframework.stereotype.Component;
 
 @Component

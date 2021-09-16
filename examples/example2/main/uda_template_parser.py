@@ -35,6 +35,10 @@ def replaceJava(path,table):
     for line in lines:
         if line.find("${ROUTE_NAME}") > -1:
             line = line.replace("${ROUTE_NAME}",table["table"])
+        if line.find("${SINGLE_ROUTE_NAME_CAPITALIZE}") > -1:
+            line = line.replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize())
+        if line.find("${SINGLE_ROUTE_NAME}") > -1:
+            line = line.replace("${SINGLE_ROUTE_NAME}",table["table"])
         if line.find("${ROUTE_NAME_CAPITALIZE}") > -1:
             line = line.replace("${ROUTE_NAME_CAPITALIZE}",table["table"].capitalize())
         if line.find("${PACKAGE}") > -1:
@@ -47,25 +51,51 @@ def replaceJava(path,table):
     f.close()
 
 def prepareJavaAPI(
-    PACKAGE_DIRECTORY,
-    POM_TEMPLATE_FILE_PATH,
-    POM_API_FILE_PATH,
-    MAIN_TEMPLATE_FILE_NAME,
-    MAIN_API_FILE_NAME,
-    ROUTE_TEMPLATE_FILE_NAME,
-    ROUTE_API_FILE_NAME,
+    config,
     tables):
 
-    if not os.path.exists(PACKAGE_DIRECTORY):
-        os.makedirs(PACKAGE_DIRECTORY)
+    if not os.path.exists(config["package"]+"//controller"):
+        os.makedirs(config["package"]+"//controller")
+    if not os.path.exists(config["package"]+"//config"):
+        os.makedirs(config["package"]+"//config")
+    if not os.path.exists(config["package"]+"//model"):
+        os.makedirs(config["package"]+"//model")    
+    if not os.path.exists(config["package"]+"//mapper"):
+        os.makedirs(config["package"]+"//mapper")
+    if not os.path.exists(config["package"]+"//entity"):
+        os.makedirs(config["package"]+"//entity")
+    if not os.path.exists(config["package"]+"//repository"):
+        os.makedirs(config["package"]+"//repository")    
+    if not os.path.exists(config["package"]+"//service"):
+        os.makedirs(config["package"]+"//service")
+    if not os.path.exists(config["package"]+"//config"):
+        os.makedirs(config["package"]+"//config")    
 
-    copyfile(POM_TEMPLATE_FILE_PATH, POM_API_FILE_PATH)
-    copyfile(MAIN_TEMPLATE_FILE_NAME, MAIN_API_FILE_NAME)
+    copyfile(config["pom"]["template"], config["pom"]["target"])
+    copyfile(config["application"]["template"], config["application"]["target"])
     
-    replaceJava(POM_API_FILE_PATH,{})
-    replaceJava(MAIN_API_FILE_NAME,{})
+    replaceJava(config["pom"]["target"],{})
+    replaceJava(config["application"]["target"],{})
 
     for table in tables:
-        copyfile(ROUTE_TEMPLATE_FILE_NAME, ROUTE_API_FILE_NAME.replace("${ROUTE_NAME}",table["table"].capitalize()))
-        replaceJava(ROUTE_API_FILE_NAME.replace("${ROUTE_NAME}",table["table"].capitalize()),table)
+        copyfile(config["controller"]["template"], config["controller"]["target"].replace("${ROUTE_NAME}",table["table"].capitalize()))
+        replaceJava(config["controller"]["target"].replace("${ROUTE_NAME}",table["table"].capitalize()),table)
+        
+        copyfile(config["service"]["template"], config["service"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
+        replaceJava(config["service"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
+        
+        copyfile(config["model"]["template"], config["model"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
+        replaceJava(config["model"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
+
+        copyfile(config["entity"]["template"], config["entity"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
+        replaceJava(config["entity"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
+
+        copyfile(config["repository"]["template"], config["repository"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
+        replaceJava(config["repository"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
+
+        copyfile(config["mapper"]["template"], config["mapper"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()))
+        replaceJava(config["mapper"]["target"].replace("${SINGLE_ROUTE_NAME_CAPITALIZE}",table["table"].capitalize()),table)
+
+        copyfile(config["config"]["template"], config["config"]["target"].replace("${ROUTE_NAME}",table["table"].capitalize()))
+        replaceJava(config["config"]["target"].replace("${ROUTE_NAME}",table["table"].capitalize()),table)
     

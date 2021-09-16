@@ -1,8 +1,6 @@
-package com.uda.examples.model;
+package com.uda.examplestemp.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

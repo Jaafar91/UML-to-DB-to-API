@@ -45,18 +45,39 @@ elif TARGET_API_LANGUAGE_EXTENSION == "java":
     MAIN_TEMPLATE_FILE_NAME="..\\templates\\%s\\Application.java"%(TARGET_API_LANGUAGE_EXTENSION)
     MAIN_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\Application.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
     
+    CONFIG_TEMPLATE_FILE_NAME="..\\templates\\%s\\DBConfig.java"%(TARGET_API_LANGUAGE_EXTENSION)
+    CONFIG_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\config\\DBConfig.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    
     ROUTE_TEMPLATE_FILE_NAME="..\\templates\\%s\\RouteController.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    ROUTE_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\${ROUTE_NAME}Controller.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    ROUTE_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\controller\\${ROUTE_NAME}Controller.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
 
+    SERVICE_TEMPLATE_FILE_NAME="..\\templates\\%s\\Service.java"%(TARGET_API_LANGUAGE_EXTENSION)
+    SERVICE_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\service\\${SINGLE_ROUTE_NAME_CAPITALIZE}Service.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+
+    ENITITY_TEMPLATE_FILE_NAME="..\\templates\\%s\\Entity.java"%(TARGET_API_LANGUAGE_EXTENSION)
+    ENITITY_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\entity\\${SINGLE_ROUTE_NAME_CAPITALIZE}Entity.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+
+    MAPPER_TEMPLATE_FILE_NAME="..\\templates\\%s\\Mapper.java"%(TARGET_API_LANGUAGE_EXTENSION)
+    MAPPER_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\mapper\\${SINGLE_ROUTE_NAME_CAPITALIZE}Mapper.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    
+    MODEL_TEMPLATE_FILE_NAME="..\\templates\\%s\\Model.java"%(TARGET_API_LANGUAGE_EXTENSION)
+    MODEL_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\model\\${SINGLE_ROUTE_NAME_CAPITALIZE}.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+
+    REPO_TEMPLATE_FILE_NAME="..\\templates\\%s\\Repository.java"%(TARGET_API_LANGUAGE_EXTENSION)
+    REPO_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\repository\\${SINGLE_ROUTE_NAME_CAPITALIZE}Repository.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+
+    obj = {"controller":{"template":ROUTE_TEMPLATE_FILE_NAME,"target":ROUTE_API_FILE_NAME},
+    "pom":{"template":POM_TEMPLATE_FILE_PATH,"target":POM_API_FILE_PATH},
+    "package": PACKAGE_DIRECTORY,
+    "application": {"template":MAIN_TEMPLATE_FILE_NAME,"target":MAIN_API_FILE_NAME},
+    "config": {"template":CONFIG_TEMPLATE_FILE_NAME,"target":CONFIG_API_FILE_NAME},
+    "service": {"template":SERVICE_TEMPLATE_FILE_NAME,"target":SERVICE_API_FILE_NAME},
+    "entity": {"template":ENITITY_TEMPLATE_FILE_NAME,"target":ENITITY_API_FILE_NAME},
+    "model": {"template":MODEL_TEMPLATE_FILE_NAME,"target":MODEL_API_FILE_NAME},
+    "mapper": {"template":MAPPER_TEMPLATE_FILE_NAME,"target":MAPPER_API_FILE_NAME},
+    "repository": {"template":REPO_TEMPLATE_FILE_NAME,"target":REPO_API_FILE_NAME}
+    }
     prepareJavaAPI(
-        PACKAGE_DIRECTORY,
-        POM_TEMPLATE_FILE_PATH,
-        POM_API_FILE_PATH,
-        MAIN_TEMPLATE_FILE_NAME,
-        MAIN_API_FILE_NAME,
-        ROUTE_TEMPLATE_FILE_NAME,
-        ROUTE_API_FILE_NAME,
+        obj,
         outputTables,
     )
-    
-    

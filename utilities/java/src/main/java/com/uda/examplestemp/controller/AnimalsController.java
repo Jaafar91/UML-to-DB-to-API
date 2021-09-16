@@ -1,15 +1,13 @@
-package com.uda.examples.controller;
+package com.uda.examplestemp.controller;
 
-import com.uda.examples.model.Animal;
-import com.uda.examples.model.AnimalEntity;
-import com.uda.examples.service.AnimalService;
+import com.uda.examplestemp.model.Animal;
+import com.uda.examplestemp.service.AnimalService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
 
 @AllArgsConstructor
@@ -20,7 +18,6 @@ public class AnimalsController {
 
     @GetMapping("/animals")
     public ResponseEntity<List<Animal>> getAll() {
-        List<Animal> list = animalService.getAll();
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(animalService.getAll(), HttpStatus.OK);
     }
 }

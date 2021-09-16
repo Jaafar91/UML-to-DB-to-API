@@ -1,4 +1,4 @@
-package com.uda.examples.model;
+package com.uda.examplestemp.model;
 
 import lombok.Builder;
 import lombok.Getter;

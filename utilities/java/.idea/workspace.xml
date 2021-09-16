@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fb4b00c4-8b6a-4703-8c66-3717b2682698" name="Default Changelist" comment="" />
+    <list default="true" id="fb4b00c4-8b6a-4703-8c66-3717b2682698" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../examples/example2/main/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../../examples/example2/main/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../examples/example2/main/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../examples/example2/main/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../examples/example2/main/uda_template_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../examples/example2/main/uda_template_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../examples/example2/templates/java/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../examples/example2/templates/java/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../examples/example2/templates/java/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../examples/example2/templates/java/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../examples/example2/templates/java/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../examples/example2/templates/java/RouteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../examples/example2/templates/java/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../examples/example2/templates/java/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../examples/example2/templates/java/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/uda/examples/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/uda/examplestemp/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/uda/examples/config/ExampleDBConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/uda/examplestemp/config/ExampleDBConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/uda/examples/controller/AnimalsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/uda/examplestemp/controller/AnimalsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/uda/examples/controller/CagesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/uda/examplestemp/controller/CagesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/uda/examples/mapper/AnimalsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/uda/examplestemp/mapper/AnimalsMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/uda/examples/model/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/uda/examplestemp/model/Animal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/uda/examples/model/AnimalEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/uda/examplestemp/model/AnimalEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/uda/examples/repository/AnimalRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/uda/examplestemp/repository/AnimalRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/uda/examples/service/AnimalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/uda/examplestemp/service/AnimalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resource/application.yaml" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,7 +37,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
   <component name="ProjectId" id="1y4bxzAwTCowwb2eKp31CHxK56c" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -23,6 +49,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -112,10 +139,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="524" y="115" key="#xdebugger.evaluate/0.0.1536.824@0.0.1536.824" timestamp="1631748426292" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1631744042039">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1631784545962">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1631744042039" />
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1631784545962" />
     <state width="1493" height="261" key="GridCell.Tab.0.bottom" timestamp="1631748637771">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -160,26 +187,30 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1631745249907" />
+    <state x="462" y="144" width="611" height="536" key="find.popup" timestamp="1631790955370">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="462" y="144" width="611" height="536" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1631790955370" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1631550157918">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1631550157918" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1631548570325">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1631791043925">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1631548570325" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1631791043925" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/uda/examples/controller/AnimalsController.java</url>
-          <line>23</line>
+          <url>file://$PROJECT_DIR$/src/main/java/com/uda/examplestemp/controller/AnimalsController.java</url>
+          <line>20</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/uda/examples/service/AnimalService.java</url>
-          <line>24</line>
+          <url>file://$PROJECT_DIR$/src/main/java/com/uda/examplestemp/service/AnimalService.java</url>
+          <line>22</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
