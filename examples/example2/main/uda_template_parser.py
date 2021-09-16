@@ -60,12 +60,16 @@ def replaceJava(path,table):
                 modelLines.append("private %s %s;"%(convertDatabaseDataTypeToJaveDateType(col["dataType"]),col["name"]))
             
             line=line.replace("${MODEL_COLUMNS}","\n\n\t".join(modelLines))    
-        if line.find("${MAPPER_BODY}") > -1:
+        if line.find("${MAPPER_BODY_ENTITY}") > -1:
             mapperLines=[]
             for col in table['cols']:
                 mapperLines.append(".%s(%sEntity.get%s())"%(col["name"],table["table"],col["name"].capitalize()))
-            
-            line=line.replace("${MAPPER_BODY}","\n\t\t\t\t".join(mapperLines))    
+            line=line.replace("${MAPPER_BODY_ENTITY}","\n\t\t\t\t".join(mapperLines))    
+        if line.find("${MAPPER_BODY_MODEL}") > -1:
+            mapperLines=[]
+            for col in table['cols']:
+                mapperLines.append(".%s(%s.get%s())"%(col["name"],table["table"],col["name"].capitalize()))
+            line=line.replace("${MAPPER_BODY_MODEL}","\n\t\t\t\t".join(mapperLines))
         if line.find("${ROUTE_UNIQUE}") > -1:
             line=line.replace("${ROUTE_UNIQUE}",table["key"])
         if line.find("${ROUTE_UNIQUE_DATATYPE}") > -1:

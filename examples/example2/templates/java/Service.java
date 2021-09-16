@@ -33,4 +33,11 @@ public class ${SINGLE_ROUTE_NAME_CAPITALIZE}Service {
                 ${SINGLE_ROUTE_NAME}Repository.findBy${ROUTE_UNIQUE_CAPITALIZE}(${ROUTE_UNIQUE}).get()
             ));
     }
+
+    public GenericResponse createOne(${SINGLE_ROUTE_NAME_CAPITALIZE} ${SINGLE_ROUTE_NAME}) {
+        return genericResponseMapper.map(
+            null,
+            ${SINGLE_ROUTE_NAME}Repository.save(${SINGLE_ROUTE_NAME}Mapper.map(${SINGLE_ROUTE_NAME}))
+            );
+    }
 }

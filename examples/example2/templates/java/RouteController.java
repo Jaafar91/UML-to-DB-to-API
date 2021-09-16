@@ -2,13 +2,9 @@ package ${PACKAGE}.controller;
 
 import ${PACKAGE}.service.${ROUTE_NAME_CAPITALIZE}Service;
 import lombok.AllArgsConstructor;
+import com.uda.examples.model.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
-import ${PACKAGE}.model.GenericResponse;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
@@ -26,4 +22,8 @@ public class ${ROUTE_NAME_CAPITALIZE}Controller {
         return ResponseEntity.ok(${SINGLE_ROUTE_NAME}Service.getOne(${ROUTE_UNIQUE}));
     }
 
+    @PostMapping("/${ROUTE_NAME}")
+    public ResponseEntity<GenericResponse> createOne(@RequestBody ${SINGLE_ROUTE_NAME_CAPITALIZE} ${SINGLE_ROUTE_NAME}){
+        return ResponseEntity.ok(${SINGLE_ROUTE_NAME}Service.createOne(${SINGLE_ROUTE_NAME}));
+    }
 }
