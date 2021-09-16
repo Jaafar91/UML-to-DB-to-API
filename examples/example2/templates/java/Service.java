@@ -25,4 +25,12 @@ public class ${SINGLE_ROUTE_NAME_CAPITALIZE}Service {
                 ${SINGLE_ROUTE_NAME}Repository.findAll().stream().map(x -> ${SINGLE_ROUTE_NAME}Mapper.map(x)).collect(Collectors.toList())
             ).build());
     }
+
+    public GenericResponse getOne(${ROUTE_UNIQUE_DATATYPE} ${ROUTE_UNIQUE}) {
+        return genericResponseMapper.map(
+            null,
+            ${SINGLE_ROUTE_NAME}Mapper.map(
+                ${SINGLE_ROUTE_NAME}Repository.findBy${ROUTE_UNIQUE_CAPITALIZE}(${ROUTE_UNIQUE}).get()
+            ));
+    }
 }

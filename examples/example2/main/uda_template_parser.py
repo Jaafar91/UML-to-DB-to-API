@@ -66,7 +66,17 @@ def replaceJava(path,table):
                 mapperLines.append(".%s(%sEntity.get%s())"%(col["name"],table["table"],col["name"].capitalize()))
             
             line=line.replace("${MAPPER_BODY}","\n\t\t\t\t".join(mapperLines))    
-            
+        if line.find("${ROUTE_UNIQUE}") > -1:
+            line=line.replace("${ROUTE_UNIQUE}",table["key"])
+        if line.find("${ROUTE_UNIQUE_DATATYPE}") > -1:
+            dataType=""
+            for col in table["cols"]:
+                if col["name"] == table["key"]:
+                    dataType=col["dataType"]
+            line=line.replace("${ROUTE_UNIQUE_DATATYPE}",convertDatabaseDataTypeToJaveDateType(dataType))
+        if line.find("${ROUTE_UNIQUE_CAPITALIZE}") > -1:
+            line=line.replace("${ROUTE_UNIQUE_CAPITALIZE}",table["key"].capitalize())
+
         destLines.append(line)
     f = open(path, "w")
     f.write("\n".join(destLines))
