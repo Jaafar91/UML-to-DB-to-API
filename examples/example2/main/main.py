@@ -25,10 +25,14 @@ createTables(DDL_FILE_NAME,DATABASE_TYPE,CONNECTION_STRING)
 
 #PYTHON
 if TARGET_API_LANGUAGE_EXTENSION == "py":
-    DB_API_PATH="..\\out\\api\\%s\\%s\\api_database_connection.py"%(TARGET_API_LANGUAGE_EXTENSION,OUTPUT_FOLDER)
+    BASE_OUTPUT="..\\out\\api\\%s\\%s"%(TARGET_API_LANGUAGE_EXTENSION,OUTPUT_FOLDER)
+    DB_API_PATH=BASE_OUTPUT+"\\api_database_connection.py"
     MAIN_TEMPLATE_FILE_NAME="..\\templates\\%s\\api-main.py"%(TARGET_API_LANGUAGE_EXTENSION)
     ROUTE_TEMPLATE_FILE_NAME="..\\templates\\%s\\api-route.py"%(TARGET_API_LANGUAGE_EXTENSION)
     DB_TEMPLATE_FILE_NAME="..\\templates\\%s\\api_database_connection.py"%(TARGET_API_LANGUAGE_EXTENSION)
+
+    if not os.path.exists(BASE_OUTPUT):
+        os.makedirs(BASE_OUTPUT)
 
     #copy database connection file
     copyfile(DB_TEMPLATE_FILE_NAME, DB_API_PATH)
