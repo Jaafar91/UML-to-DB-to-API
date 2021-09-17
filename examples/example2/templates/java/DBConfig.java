@@ -8,6 +8,7 @@ import org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -26,14 +27,26 @@ import java.util.Map;
 @EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", transactionManagerRef = "transactionManager", basePackages = {"${PACKAGE}"})
 public class DBConfig {
 
+    @Value("${spring.datasource.driverClassName}")
+    private String driverClassName;
+
+    @Value("${spring.datasource.url}")
+    private String dataSourceUrl;
+
+    @Value("${spring.datasource.username}")
+    private String dataSourceUsername;
+
+    @Value("${spring.datasource.password}")
+    private String dataSourcePassword;
+
     @Primary
     @Bean(name = "dataSource")
     public DataSource dataSource() {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dataSource.setUrl("jdbc:sqlserver://localhost:1475;databaseName=uda;sendTimeAsDateTime=false;queryTimeout=10");
-        dataSource.setUsername("SA");
-        dataSource.setPassword("Abc@1234");
+        dataSource.setDriverClassName(driverClassName);
+        dataSource.setUrl(dataSourceUrl);
+        dataSource.setUsername(dataSourceUsername);
+        dataSource.setPassword(dataSourcePassword);
 
         return dataSource;
     }

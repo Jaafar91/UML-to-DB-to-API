@@ -37,10 +37,15 @@ if TARGET_API_LANGUAGE_EXTENSION == "py":
 
 elif TARGET_API_LANGUAGE_EXTENSION == "java":
     PACKAGE_NAME=os.getenv('PACKAGE').replace('.','\\')
+    
     POM_TEMPLATE_FILE_PATH="..\\templates\\%s\\pom.xml"%(TARGET_API_LANGUAGE_EXTENSION)
     POM_API_FILE_PATH="..\\out\\api\\%s\\pom.xml"%(TARGET_API_LANGUAGE_EXTENSION)
 
+    YAML_TEMPLATE_FILE_PATH="..\\templates\\%s\\application.yaml"%(TARGET_API_LANGUAGE_EXTENSION)
+    YAML_API_FILE_PATH="..\\out\\api\\%s\\src\\main\\resources\\application.yaml"%(TARGET_API_LANGUAGE_EXTENSION)
+
     PACKAGE_DIRECTORY="..\\out\\api\\%s\\src\\main\\java\\%s"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    RESOURCE_DIRECTORY="..\\out\\api\\%s\\src\\main\\resources"%(TARGET_API_LANGUAGE_EXTENSION)
     
     MAIN_TEMPLATE_FILE_NAME="..\\templates\\%s\\Application.java"%(TARGET_API_LANGUAGE_EXTENSION)
     MAIN_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\Application.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
@@ -80,7 +85,9 @@ elif TARGET_API_LANGUAGE_EXTENSION == "java":
     
     obj = {
     "pom":{"template":POM_TEMPLATE_FILE_PATH,"target":POM_API_FILE_PATH},
+    "yaml":{"template":YAML_TEMPLATE_FILE_PATH,"target":YAML_API_FILE_PATH},
     "package": PACKAGE_DIRECTORY,
+    "resources": RESOURCE_DIRECTORY,
     "application": {"template":MAIN_TEMPLATE_FILE_NAME,"target":MAIN_API_FILE_NAME},
     "config": {"template":CONFIG_TEMPLATE_FILE_NAME,"target":CONFIG_API_FILE_NAME},
     "controller":{"template":ROUTE_TEMPLATE_FILE_NAME,"target":ROUTE_API_FILE_NAME},

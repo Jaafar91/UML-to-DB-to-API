@@ -80,7 +80,14 @@ def replaceJava(path,table):
             line=line.replace("${ROUTE_UNIQUE_DATATYPE}",convertDatabaseDataTypeToJaveDateType(dataType))
         if line.find("${ROUTE_UNIQUE_CAPITALIZE}") > -1:
             line=line.replace("${ROUTE_UNIQUE_CAPITALIZE}",table["key"].capitalize())
-
+        if line.find("${DRIVER_CLASS_NAME}") > -1:
+            line=line.replace("${DRIVER_CLASS_NAME}",os.getenv("DRIVER_CLASS_NAME"))
+        if line.find("${JDBC_URL}") > -1:
+            line=line.replace("${JDBC_URL}",os.getenv("JDBC_URL"))
+        if line.find("${DATABASE_USERNAME}") > -1:
+            line=line.replace("${DATABASE_USERNAME}",os.getenv("DATABASE_USERNAME"))
+        if line.find("${DATABASE_PASSWORD}") > -1:
+            line=line.replace("${DATABASE_PASSWORD}",os.getenv("DATABASE_PASSWORD"))
         destLines.append(line)
     f = open(path, "w")
     f.write("\n".join(destLines))
@@ -113,11 +120,17 @@ def prepareJavaAPI(
     if not os.path.exists(config["package"]+"//service"):
         os.makedirs(config["package"]+"//service")
     if not os.path.exists(config["package"]+"//config"):
-        os.makedirs(config["package"]+"//config")    
+        os.makedirs(config["package"]+"//config")
+    print(config["resources"])
+    if not os.path.exists(config["resources"]):
+        os.makedirs(config["resources"])    
 
 
     copyfile(config["pom"]["template"], config["pom"]["target"])
     replaceJava(config["pom"]["target"],{})
+
+    copyfile(config["yaml"]["template"], config["yaml"]["target"])
+    replaceJava(config["yaml"]["target"],{})
     
     copyfile(config["application"]["template"], config["application"]["target"])
     replaceJava(config["application"]["target"],{})
