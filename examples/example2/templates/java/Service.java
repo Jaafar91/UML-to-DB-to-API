@@ -50,4 +50,15 @@ public class ${SINGLE_ROUTE_NAME_CAPITALIZE}Service {
             null,
             null);
     }
+
+    public GenericResponse updateOne(${ROUTE_UNIQUE_DATATYPE} ${ROUTE_UNIQUE},${SINGLE_ROUTE_NAME_CAPITALIZE} ${SINGLE_ROUTE_NAME}) {
+        
+        ${SINGLE_ROUTE_NAME_CAPITALIZE}Entity ${SINGLE_ROUTE_NAME}Entity=${SINGLE_ROUTE_NAME}Repository.getById(id);
+        ${UPDATE_API_BODY}
+        ${SINGLE_ROUTE_NAME}Repository.save(${SINGLE_ROUTE_NAME}Entity);
+        return genericResponseMapper.map(
+            null,
+            null
+            );
+    }
 }

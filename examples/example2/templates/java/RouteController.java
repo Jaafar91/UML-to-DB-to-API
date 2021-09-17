@@ -31,4 +31,9 @@ public class ${ROUTE_NAME_CAPITALIZE}Controller {
     public ResponseEntity<GenericResponse> deleteOne(@PathVariable("${ROUTE_UNIQUE}") ${ROUTE_UNIQUE_DATATYPE} ${ROUTE_UNIQUE}) {
         return ResponseEntity.ok(${SINGLE_ROUTE_NAME}Service.deleteOne(${ROUTE_UNIQUE}));
     }
+
+    @PutMapping("/${ROUTE_NAME}/{${ROUTE_UNIQUE}}")
+    public ResponseEntity<GenericResponse> deleteOne(@PathVariable("${ROUTE_UNIQUE}") ${ROUTE_UNIQUE_DATATYPE} ${ROUTE_UNIQUE},@RequestBody ${SINGLE_ROUTE_NAME_CAPITALIZE} ${SINGLE_ROUTE_NAME}) {
+        return ResponseEntity.ok(${SINGLE_ROUTE_NAME}Service.updateOne(${ROUTE_UNIQUE},${SINGLE_ROUTE_NAME}));
+    }
 }

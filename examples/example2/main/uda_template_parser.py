@@ -88,6 +88,13 @@ def replaceJava(path,table):
             line=line.replace("${DATABASE_USERNAME}",os.getenv("DATABASE_USERNAME"))
         if line.find("${DATABASE_PASSWORD}") > -1:
             line=line.replace("${DATABASE_PASSWORD}",os.getenv("DATABASE_PASSWORD"))
+        if line.find("${UPDATE_API_BODY}") > -1:
+            distLines=[]
+            for col in table["cols"]:
+                if col["name"] != table["key"]:
+                    distLines.append("if(%s.get%s() != null){"%(table["table"],col["name"].capitalize()))
+                    distLines.append("\t%sEntity.set%s(%s.get%s());\n\t\t}"%(table["table"],col["name"].capitalize(),table["table"],col["name"].capitalize()))
+            line=line.replace("${UPDATE_API_BODY}","\n\t\t".join(distLines))
         destLines.append(line)
     f = open(path, "w")
     f.write("\n".join(destLines))
