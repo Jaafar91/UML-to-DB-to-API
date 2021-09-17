@@ -8,13 +8,14 @@ from shutil import copyfile
 load_dotenv()
 
 NAME=os.getenv('PLANTUML_NAME')
+OUTPUT_FOLDER=os.getenv('OUTPUT_FOLDER')
 DATABASE_TYPE=os.getenv('DATABASE_TYPE')
 CONNECTION_STRING=os.getenv('CONNECTION_STRING')
 TARGET_DB_LANGUAGE_EXTENSION='sql'
 TARGET_API_LANGUAGE_EXTENSION=os.getenv('TARGET_API_LANGUAGE_EXTENSION')
 DESIGN_FILE_NAME="..\\%s.plantuml"%(NAME)
 DDL_FILE_NAME="..\\out\\ddl\\%s.%s"%(NAME,TARGET_DB_LANGUAGE_EXTENSION)
-API_FILE_NAME="..\\out\\api\\%s\\%s.%s"%(TARGET_API_LANGUAGE_EXTENSION,"api",TARGET_API_LANGUAGE_EXTENSION)
+API_FILE_NAME="..\\out\\api\\%s\\%s\\%s.%s"%(TARGET_API_LANGUAGE_EXTENSION,OUTPUT_FOLDER,"api",TARGET_API_LANGUAGE_EXTENSION)
 
 #print sql script
 outputTables=readDesign(DESIGN_FILE_NAME,DDL_FILE_NAME)
@@ -24,7 +25,7 @@ createTables(DDL_FILE_NAME,DATABASE_TYPE,CONNECTION_STRING)
 
 #PYTHON
 if TARGET_API_LANGUAGE_EXTENSION == "py":
-    DB_API_PATH="..\\out\\api\\%s\\api_database_connection.py"%(TARGET_API_LANGUAGE_EXTENSION)
+    DB_API_PATH="..\\out\\api\\%s\\%s\\api_database_connection.py"%(TARGET_API_LANGUAGE_EXTENSION,OUTPUT_FOLDER)
     MAIN_TEMPLATE_FILE_NAME="..\\templates\\%s\\api-main.py"%(TARGET_API_LANGUAGE_EXTENSION)
     ROUTE_TEMPLATE_FILE_NAME="..\\templates\\%s\\api-route.py"%(TARGET_API_LANGUAGE_EXTENSION)
     DB_TEMPLATE_FILE_NAME="..\\templates\\%s\\api_database_connection.py"%(TARGET_API_LANGUAGE_EXTENSION)
@@ -37,51 +38,54 @@ if TARGET_API_LANGUAGE_EXTENSION == "py":
 
 elif TARGET_API_LANGUAGE_EXTENSION == "java":
     PACKAGE_NAME=os.getenv('PACKAGE').replace('.','\\')
+    BASE_TEMPLATE="..\\templates\\%s\\"%(TARGET_API_LANGUAGE_EXTENSION)
+    #BASE_API="..\\out\\api\\%s\\%s\\src\\main\\"%(TARGET_API_LANGUAGE_EXTENSION,OUTPUT_FOLDER)
+    BASE_API="..\\out\\api\\%s\\%s\\"%(TARGET_API_LANGUAGE_EXTENSION,OUTPUT_FOLDER)
     
-    POM_TEMPLATE_FILE_PATH="..\\templates\\%s\\pom.xml"%(TARGET_API_LANGUAGE_EXTENSION)
-    POM_API_FILE_PATH="..\\out\\api\\%s\\pom.xml"%(TARGET_API_LANGUAGE_EXTENSION)
+    POM_TEMPLATE_FILE_PATH=BASE_TEMPLATE+"pom.xml"
+    POM_API_FILE_PATH=BASE_API+"pom.xml"
 
-    YAML_TEMPLATE_FILE_PATH="..\\templates\\%s\\application.yaml"%(TARGET_API_LANGUAGE_EXTENSION)
-    YAML_API_FILE_PATH="..\\out\\api\\%s\\src\\main\\resources\\application.yaml"%(TARGET_API_LANGUAGE_EXTENSION)
+    PACKAGE_DIRECTORY=BASE_API+"src\\main\\java\\%s"%(PACKAGE_NAME)
+    RESOURCE_DIRECTORY=BASE_API+"src\\main\\resources"
 
-    PACKAGE_DIRECTORY="..\\out\\api\\%s\\src\\main\\java\\%s"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
-    RESOURCE_DIRECTORY="..\\out\\api\\%s\\src\\main\\resources"%(TARGET_API_LANGUAGE_EXTENSION)
+    YAML_TEMPLATE_FILE_PATH=BASE_TEMPLATE+"application.yaml"
+    YAML_API_FILE_PATH=RESOURCE_DIRECTORY+"\\application.yaml"
     
-    MAIN_TEMPLATE_FILE_NAME="..\\templates\\%s\\Application.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    MAIN_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\Application.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    MAIN_TEMPLATE_FILE_NAME=BASE_TEMPLATE+"Application.java"
+    MAIN_API_FILE_NAME=PACKAGE_DIRECTORY+"\\Application.java"
     
-    CONFIG_TEMPLATE_FILE_NAME="..\\templates\\%s\\DBConfig.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    CONFIG_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\config\\DBConfig.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    CONFIG_TEMPLATE_FILE_NAME=BASE_TEMPLATE+"DBConfig.java"
+    CONFIG_API_FILE_NAME=PACKAGE_DIRECTORY+"\\config\\DBConfig.java"
     
-    ROUTE_TEMPLATE_FILE_NAME="..\\templates\\%s\\RouteController.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    ROUTE_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\controller\\${ROUTE_NAME}Controller.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    ROUTE_TEMPLATE_FILE_NAME=BASE_TEMPLATE+"RouteController.java"
+    ROUTE_API_FILE_NAME=PACKAGE_DIRECTORY+"\\controller\\${ROUTE_NAME}Controller.java"
 
-    SERVICE_TEMPLATE_FILE_NAME="..\\templates\\%s\\Service.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    SERVICE_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\service\\${SINGLE_ROUTE_NAME_CAPITALIZE}Service.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    SERVICE_TEMPLATE_FILE_NAME=BASE_TEMPLATE+"Service.java"
+    SERVICE_API_FILE_NAME=PACKAGE_DIRECTORY+"\\service\\${SINGLE_ROUTE_NAME_CAPITALIZE}Service.java"
 
-    ENITITY_TEMPLATE_FILE_NAME="..\\templates\\%s\\Entity.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    ENITITY_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\entity\\${SINGLE_ROUTE_NAME_CAPITALIZE}Entity.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    ENITITY_TEMPLATE_FILE_NAME=BASE_TEMPLATE+"Entity.java"
+    ENITITY_API_FILE_NAME=PACKAGE_DIRECTORY+"\\entity\\${SINGLE_ROUTE_NAME_CAPITALIZE}Entity.java"
 
-    MAPPER_TEMPLATE_FILE_NAME="..\\templates\\%s\\Mapper.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    MAPPER_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\mapper\\${SINGLE_ROUTE_NAME_CAPITALIZE}Mapper.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    MAPPER_TEMPLATE_FILE_NAME=BASE_TEMPLATE+"Mapper.java"
+    MAPPER_API_FILE_NAME=PACKAGE_DIRECTORY+"\\mapper\\${SINGLE_ROUTE_NAME_CAPITALIZE}Mapper.java"
     
-    MODEL_TEMPLATE_FILE_NAME="..\\templates\\%s\\Model.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    MODEL_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\model\\${SINGLE_ROUTE_NAME_CAPITALIZE}.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    MODEL_TEMPLATE_FILE_NAME=BASE_TEMPLATE+"Model.java"
+    MODEL_API_FILE_NAME=PACKAGE_DIRECTORY+"\\model\\${SINGLE_ROUTE_NAME_CAPITALIZE}.java"
 
-    REPO_TEMPLATE_FILE_NAME="..\\templates\\%s\\Repository.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    REPO_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\repository\\${SINGLE_ROUTE_NAME_CAPITALIZE}Repository.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    REPO_TEMPLATE_FILE_NAME=BASE_TEMPLATE+"Repository.java"
+    REPO_API_FILE_NAME=PACKAGE_DIRECTORY+"\\repository\\${SINGLE_ROUTE_NAME_CAPITALIZE}Repository.java"
 
-    META_TEMPLATE_FILE_NAME="..\\templates\\%s\\Meta.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    META_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\model\\Meta.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    META_TEMPLATE_FILE_NAME=BASE_TEMPLATE+"Meta.java"
+    META_API_FILE_NAME=PACKAGE_DIRECTORY+"\\model\\Meta.java"
 
-    DATA_TEMPLATE_FILE_NAME="..\\templates\\%s\\Data.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    DATA_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\model\\${SINGLE_ROUTE_NAME_CAPITALIZE}Data.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    DATA_TEMPLATE_FILE_NAME=BASE_TEMPLATE+"Data.java"
+    DATA_API_FILE_NAME=PACKAGE_DIRECTORY+"\\model\\${SINGLE_ROUTE_NAME_CAPITALIZE}Data.java"
 
-    GEN_RESPONSE_TEMPLATE_FILE_NAME="..\\templates\\%s\\GenericResponse.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    GEN_RESPONSE_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\model\\GenericResponse.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    GEN_RESPONSE_TEMPLATE_FILE_NAME=BASE_TEMPLATE+"GenericResponse.java"
+    GEN_RESPONSE_API_FILE_NAME=PACKAGE_DIRECTORY+"\\model\\GenericResponse.java"
 
-    RESPONSE_MAPPER_TEMPLATE_FILE_NAME="..\\templates\\%s\\GenericResponseMapper.java"%(TARGET_API_LANGUAGE_EXTENSION)
-    RESPONSE_MAPPER_API_FILE_NAME="..\\out\\api\\%s\\src\\main\\java\\%s\\mapper\\GenericResponseMapper.java"%(TARGET_API_LANGUAGE_EXTENSION,PACKAGE_NAME)
+    RESPONSE_MAPPER_TEMPLATE_FILE_NAME=BASE_TEMPLATE+"GenericResponseMapper.java"
+    RESPONSE_MAPPER_API_FILE_NAME=PACKAGE_DIRECTORY+"\\mapper\\GenericResponseMapper.java"
     
     obj = {
     "pom":{"template":POM_TEMPLATE_FILE_PATH,"target":POM_API_FILE_PATH},
