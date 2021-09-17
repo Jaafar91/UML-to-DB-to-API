@@ -18,12 +18,17 @@ public class ${ROUTE_NAME_CAPITALIZE}Controller {
     }
 
     @GetMapping("/${ROUTE_NAME}/{${ROUTE_UNIQUE}}")
-    public ResponseEntity<GenericResponse> getOne(@PathVariable("${ROUTE_UNIQUE}") int ${ROUTE_UNIQUE}) {
+    public ResponseEntity<GenericResponse> getOne(@PathVariable("${ROUTE_UNIQUE}") ${ROUTE_UNIQUE_DATATYPE} ${ROUTE_UNIQUE}) {
         return ResponseEntity.ok(${SINGLE_ROUTE_NAME}Service.getOne(${ROUTE_UNIQUE}));
     }
 
     @PostMapping("/${ROUTE_NAME}")
     public ResponseEntity<GenericResponse> createOne(@RequestBody ${SINGLE_ROUTE_NAME_CAPITALIZE} ${SINGLE_ROUTE_NAME}){
         return ResponseEntity.ok(${SINGLE_ROUTE_NAME}Service.createOne(${SINGLE_ROUTE_NAME}));
+    }
+
+    @DeleteMapping("/${ROUTE_NAME}/{${ROUTE_UNIQUE}}")
+    public ResponseEntity<GenericResponse> deleteOne(@PathVariable("${ROUTE_UNIQUE}") ${ROUTE_UNIQUE_DATATYPE} ${ROUTE_UNIQUE}) {
+        return ResponseEntity.ok(${SINGLE_ROUTE_NAME}Service.deleteOne(${ROUTE_UNIQUE}));
     }
 }
