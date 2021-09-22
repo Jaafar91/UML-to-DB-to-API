@@ -46,7 +46,11 @@ def replaceJava(path,table):
         if line.find("${ARTIFACT_NAME}") > -1:
             line=line.replace("${ARTIFACT_NAME}",os.getenv('ARTIFACT_NAME'))
         if line.find("${ENTITY_ID}") > -1:
-            line=line.replace("${ENTITY_ID}","private int %s;"%(table["key"]))
+            entityLines=[]
+            for col in table['cols']:
+                if col["name"] == table["key"]:
+                    line=line.replace("${ENTITY_ID}","private %s %s;"%(convertDatabaseDataTypeToJaveDateType(col["dataType"]),table["key"]))
+                    break
         if line.find("${ENTITY_OTHER_COLUMNS}") > -1:
             entityLines=[]
             for col in table['cols']:
@@ -106,7 +110,11 @@ def convertDatabaseDataTypeToJaveDateType(dataType):
     elif dataType.upper().startswith("DATE"):
         return "Date"
     elif dataType.upper() == ("INT"):
-        return "int"
+        return "Integer"
+    elif dataType.upper() == ("BOOLEAN"):
+        return "Boolean"
+    else:
+        return dataType
 
 def prepareJavaAPI(
     config,
@@ -128,7 +136,6 @@ def prepareJavaAPI(
         os.makedirs(config["package"]+"//service")
     if not os.path.exists(config["package"]+"//config"):
         os.makedirs(config["package"]+"//config")
-    print(config["resources"])
     if not os.path.exists(config["resources"]):
         os.makedirs(config["resources"])    
 

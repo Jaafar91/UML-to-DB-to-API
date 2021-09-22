@@ -66,7 +66,7 @@ def generateDDL(allTables):
             row = ""
             if line.startswith("entity"):
                 tableName=getTableName(line)
-            elif line.startswith("*"):
+            elif line.startswith("*") and line.startswith("**") == False:
                 row = replaceIndexes(line)
                 rows.append(row+" NOT NULL PRIMARY KEY")
                 col["name"]=row.split(' ')[0]
@@ -76,14 +76,39 @@ def generateDDL(allTables):
             elif line.startswith("}") == False:
                 row = replaceIndexes(line)
                 rows.append(row)
-                print(row)
                 col["name"]=row.split(' ')[0]
                 col["dataType"]= row.split(' ')[len(row.split(' '))-1]
+                if line.startswith("**"):
+                    col["FK"]= True 
+                else: 
+                    col["FK"]= False 
                 cols.append(col)
+
+        
         ddls.append(CREATE_TABLE %(tableName,tableName,",\n".join(rows)))
         TABLES_NAMES.append({'table':tableName,'cols':cols,'key':key})
+    
+    fk=[]
+    for table in TABLES_NAMES:
+        for col in table["cols"]:
+            if "FK" in col and col["FK"] == True:
+                stmt="ALTER TABLE %s ADD CONSTRAINT fk_%s_%s FOREIGN KEY(%s) REFERENCES %s(%s);"%(table["table"],table["table"],col["name"],col["name"],getParentTableName(col["name"]),getParentTableNameColumn(col["name"]))
+                fk.append(stmt)
+    ddls.append("\n".join(fk))
     return ddls
-                
+
+def getParentTableName(fk):
+    for table in TABLES_NAMES:
+        if fk.startswith(table["table"]):
+            return fk[:len(table["table"])]
+
+def getParentTableNameColumn(fk):
+    for table in TABLES_NAMES:
+        if fk.startswith(table["table"]):
+            for col in table["cols"]:
+                if col["name"] == fk[len(table["table"])+1:]:
+                    return fk[len(table["table"])+1:]
+
 def getTableName(line):
     tableName=line.replace("{","").replace("entity","").strip()
     return tableName

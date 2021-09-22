@@ -1,19 +1,30 @@
 @startuml
-entity animals{
+entity employee{
   *id : int
   --
-  name :    varchar(100)
-  type :    varchar(100)
-  location: varchar(100)
-  date_of_birth: date
+  first_name :    varchar(100)
+  last_name :     varchar(100)
+  full_name:      varchar(100)
+  date_of_birth:  date
+  active:         boolean
+  **department_id   int
 }
 
-entity cages{
+entity department{
   *id : int
   --
-  size :    varchar(100)
-  type :    varchar(100)
-  location: varchar(100)
-  company:  varchar(100)
+  name :         varchar(100)
+  location :     varchar(100)
+  no_of_offices: int
 }
+
+entity example{
+  *id : int
+  --
+  col1 :         varchar(100)
+  col2 :         varchar(100)
+}
+
+department "1" *-- "many" employee : contains
+
 @enduml
