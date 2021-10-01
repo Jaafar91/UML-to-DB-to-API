@@ -1,3 +1,5 @@
+server:
+  port: ${API_PORT}
 spring:
   datasource:
     driverClassName: ${DRIVER_CLASS_NAME}

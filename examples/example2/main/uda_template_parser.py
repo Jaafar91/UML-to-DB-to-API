@@ -22,6 +22,8 @@ def getMainApiTemplate(tables,mainTemplateFileName,routeTemplateFileName,dbType,
     for line in lines:
         if line.find("${API_ROUTES}") > -1:
             line = line.replace("${API_ROUTES}","\n".join(apis))
+        if line.find("${API_PORT}") > -1:
+            line=line.replace("${API_PORT}",os.getenv("API_PORT"))
         if line.find("${DB_TYPE}") > -1:
             line=line.replace("${DB_TYPE}",dbType)
         if line.find("${CONNECTION_STRING}") > -1:
@@ -84,6 +86,8 @@ def replaceJava(path,table):
             line=line.replace("${ROUTE_UNIQUE_DATATYPE}",convertDatabaseDataTypeToJaveDateType(dataType))
         if line.find("${ROUTE_UNIQUE_CAPITALIZE}") > -1:
             line=line.replace("${ROUTE_UNIQUE_CAPITALIZE}",table["key"].capitalize())
+        if line.find("${API_PORT}") > -1:
+            line=line.replace("${API_PORT}",os.getenv("API_PORT"))
         if line.find("${DRIVER_CLASS_NAME}") > -1:
             line=line.replace("${DRIVER_CLASS_NAME}",os.getenv("DRIVER_CLASS_NAME"))
         if line.find("${JDBC_URL}") > -1:
