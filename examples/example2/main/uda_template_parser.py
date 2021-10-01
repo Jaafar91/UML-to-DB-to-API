@@ -1,6 +1,7 @@
 import re
 import os
 from shutil import copyfile
+import settings
 
 def getApiTemplate(table,routeTemplateFileName):
     lines = open(routeTemplateFileName).read().split('\n')
@@ -10,6 +11,10 @@ def getApiTemplate(table,routeTemplateFileName):
             line = line.replace("${ROUTE_NAME}",table["table"])
         if line.find("${ROUTE_UNIQUE}") > -1:
             line=line.replace("${ROUTE_UNIQUE}",table['key'])
+        if line.find("${SUCCESS_CODE}") > -1:
+            line=line.replace("${SUCCESS_CODE}",getLastSuccessCode())
+        if line.find("${META_PREFIX_CODE}") > -1:
+            line=line.replace("${META_PREFIX_CODE}",os.getenv("META_PREFIX_CODE"))
         destLines.append(line)
     return destLines
 
@@ -96,6 +101,10 @@ def replaceJava(path,table):
             line=line.replace("${DATABASE_USERNAME}",os.getenv("DATABASE_USERNAME"))
         if line.find("${DATABASE_PASSWORD}") > -1:
             line=line.replace("${DATABASE_PASSWORD}",os.getenv("DATABASE_PASSWORD"))
+        if line.find("${SUCCESS_CODE}") > -1:
+            line=line.replace("${SUCCESS_CODE}",getLastSuccessCode())
+        if line.find("${META_PREFIX_CODE}") > -1:
+            line=line.replace("${META_PREFIX_CODE}",os.getenv("META_PREFIX_CODE"))
         if line.find("${UPDATE_API_BODY}") > -1:
             distLines=[]
             for col in table["cols"]:
@@ -107,6 +116,14 @@ def replaceJava(path,table):
     f = open(path, "w")
     f.write("\n".join(destLines))
     f.close()
+
+def getLastSuccessCode():
+    if settings.GLOBAL_SUCCESS_CODE == 0:
+        settings.GLOBAL_SUCCESS_CODE=os.getenv("SUCCESS_CODE")
+    else:
+        settings.GLOBAL_SUCCESS_CODE=int(settings.GLOBAL_SUCCESS_CODE)+1
+    return str(settings.GLOBAL_SUCCESS_CODE)
+
 
 def convertDatabaseDataTypeToJaveDateType(dataType):
     if dataType.upper().startswith("VARCHAR"):

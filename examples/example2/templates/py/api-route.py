@@ -1,7 +1,7 @@
 @app.route("/${ROUTE_NAME}",methods = ['GET','POST'])
 def ${ROUTE_NAME}_getAll():
 	if request.method == 'GET':
-		apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
+		apiResponseMeta={"code":"${META_PREFIX_CODE}-${SUCCESS_CODE}","message":"default message"}
 		apiResponseData={"${ROUTE_NAME}":[]}
 		apiResponse={"meta":apiResponseMeta,"data":apiResponseData}
 		conn = getConnection(DatabaseType,ConnectionString)
@@ -18,7 +18,7 @@ def ${ROUTE_NAME}_getAll():
 		for item in req:
 			keys.append(item)
 			values.append("'"+str(req[item])+"'")
-		apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
+		apiResponseMeta={"code":"${SUCCESS_CODE}","message":"default message"}
 		apiResponse={"meta":apiResponseMeta}
 		conn = getConnection(DatabaseType,ConnectionString)
 		cursor = conn.cursor()
@@ -31,7 +31,7 @@ def ${ROUTE_NAME}_getAll():
 @app.route("/${ROUTE_NAME}/<${ROUTE_UNIQUE}>",methods = ['GET'])
 def ${ROUTE_NAME}_getOne(${ROUTE_UNIQUE}):
 	
-	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
+	apiResponseMeta={"code":"${SUCCESS_CODE}","message":"default message"}
 	apiResponse={"meta":apiResponseMeta,"data":{}}
 	conn = getConnection(DatabaseType,ConnectionString)
 	cursor = conn.cursor()
@@ -46,7 +46,7 @@ def ${ROUTE_NAME}_getOne(${ROUTE_UNIQUE}):
 @app.route("/${ROUTE_NAME}/<${ROUTE_UNIQUE}>",methods = ['DELETE'])
 def ${ROUTE_NAME}_deleteOne(${ROUTE_UNIQUE}):
 
-	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
+	apiResponseMeta={"code":"${SUCCESS_CODE}","message":"default message"}
 	apiResponse={"meta":apiResponseMeta}
 	conn = getConnection(DatabaseType,ConnectionString)
 	cursor = conn.cursor()
@@ -58,7 +58,7 @@ def ${ROUTE_NAME}_deleteOne(${ROUTE_UNIQUE}):
 @app.route("/${ROUTE_NAME}/<${ROUTE_UNIQUE}>",methods = ['PUT'])
 def ${ROUTE_NAME}_updateOne(${ROUTE_UNIQUE}):
 
-	apiResponseMeta={"code":"CODE-XXXX","message":"default message"}
+	apiResponseMeta={"code":"${SUCCESS_CODE}","message":"default message"}
 	apiResponse={"meta":apiResponseMeta}
 	req = request.get_json()
 	itemsToBeUpdated=[]

@@ -4,8 +4,10 @@ from uda_uml_parser import *
 from uda_database import *
 from uda_api import *
 from shutil import copyfile
+import settings
 
 load_dotenv()
+settings.init()
 
 NAME=os.getenv('PLANTUML_NAME')
 OUTPUT_FOLDER=os.getenv('OUTPUT_FOLDER')

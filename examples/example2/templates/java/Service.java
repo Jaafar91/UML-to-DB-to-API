@@ -20,7 +20,7 @@ public class ${SINGLE_ROUTE_NAME_CAPITALIZE}Service {
 
     public GenericResponse getAll() {
         return genericResponseMapper.map(
-            null,
+            Meta.builder().code("${META_PREFIX_CODE}-${SUCCESS_CODE}").message("").build(),
             ${SINGLE_ROUTE_NAME_CAPITALIZE}Data.builder().${SINGLE_ROUTE_NAME}(
                 ${SINGLE_ROUTE_NAME}Repository.findAll().stream().map(x -> ${SINGLE_ROUTE_NAME}Mapper.map(x)).collect(Collectors.toList())
             ).build());
@@ -28,7 +28,7 @@ public class ${SINGLE_ROUTE_NAME_CAPITALIZE}Service {
 
     public GenericResponse getOne(${ROUTE_UNIQUE_DATATYPE} ${ROUTE_UNIQUE}) {
         return genericResponseMapper.map(
-            null,
+            Meta.builder().code("${META_PREFIX_CODE}-${SUCCESS_CODE}").message("").build(),
             ${SINGLE_ROUTE_NAME}Mapper.map(
                 ${SINGLE_ROUTE_NAME}Repository.findBy${ROUTE_UNIQUE_CAPITALIZE}(${ROUTE_UNIQUE}).get()
             ));
@@ -38,7 +38,7 @@ public class ${SINGLE_ROUTE_NAME_CAPITALIZE}Service {
     public GenericResponse createOne(${SINGLE_ROUTE_NAME_CAPITALIZE} ${SINGLE_ROUTE_NAME}) {
         ${SINGLE_ROUTE_NAME}Repository.save(${SINGLE_ROUTE_NAME}Mapper.map(${SINGLE_ROUTE_NAME}));
         return genericResponseMapper.map(
-            null,
+            Meta.builder().code("${META_PREFIX_CODE}-${SUCCESS_CODE}").message("").build(),
             null
             );
     }
@@ -47,7 +47,7 @@ public class ${SINGLE_ROUTE_NAME_CAPITALIZE}Service {
         
         ${SINGLE_ROUTE_NAME}Repository.delete(${SINGLE_ROUTE_NAME}Repository.findBy${ROUTE_UNIQUE_CAPITALIZE}(${ROUTE_UNIQUE}).get());
         return genericResponseMapper.map(
-            null,
+            Meta.builder().code("${META_PREFIX_CODE}-${SUCCESS_CODE}").message("").build(),
             null);
     }
 
@@ -57,7 +57,7 @@ public class ${SINGLE_ROUTE_NAME_CAPITALIZE}Service {
         ${UPDATE_API_BODY}
         ${SINGLE_ROUTE_NAME}Repository.save(${SINGLE_ROUTE_NAME}Entity);
         return genericResponseMapper.map(
-            null,
+            Meta.builder().code("${META_PREFIX_CODE}-${SUCCESS_CODE}").message("").build(),
             null
             );
     }
