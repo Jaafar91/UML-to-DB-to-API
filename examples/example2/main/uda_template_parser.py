@@ -112,6 +112,17 @@ def replaceJava(path,table):
                     distLines.append("if(%s.get%s() != null){"%(table["table"],col["name"].capitalize()))
                     distLines.append("\t%sEntity.set%s(%s.get%s());\n\t\t}"%(table["table"],col["name"].capitalize(),table["table"],col["name"].capitalize()))
             line=line.replace("${UPDATE_API_BODY}","\n\t\t".join(distLines))
+        if line.find("${POSTMAN_CREATE_COLUMNS}") > -1:
+            distLines=[]
+            for col in table["cols"]: 
+                distLines.append('\\"%s\\": null'%col["name"])
+            line=line.replace("${POSTMAN_CREATE_COLUMNS}","{\\n\\t%s\\n}"%",\\n\\t".join(distLines))
+        if line.find("${POSTMAN_PUT_COLUMNS}") > -1:
+            distLines=[]
+            for col in table["cols"]:
+                if col["name"] != table["key"]:
+                    distLines.append('\\"%s\\":null'%col["name"])
+            line=line.replace("${POSTMAN_PUT_COLUMNS}","{\\n\\t%s\\n}"%",\\n\\t".join(distLines))
         destLines.append(line)
     f = open(path, "w")
     f.write("\n".join(destLines))

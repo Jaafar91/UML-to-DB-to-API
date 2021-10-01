@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from uda_uml_parser import *
 from uda_database import *
 from uda_api import *
+from uda_postman_parser import *
 from shutil import copyfile
 import settings
 
@@ -18,6 +19,9 @@ TARGET_API_LANGUAGE_EXTENSION=os.getenv('TARGET_API_LANGUAGE_EXTENSION')
 DESIGN_FILE_NAME="..\\%s.plantuml"%(NAME)
 DDL_FILE_NAME="..\\out\\ddl\\%s.%s"%(NAME,TARGET_DB_LANGUAGE_EXTENSION)
 API_FILE_NAME="..\\out\\api\\%s\\%s\\%s.%s"%(TARGET_API_LANGUAGE_EXTENSION,OUTPUT_FOLDER,"api",TARGET_API_LANGUAGE_EXTENSION)
+BASE_TEMPLATE="..\\templates\\%s\\"%(TARGET_API_LANGUAGE_EXTENSION)
+POSTMAN_TEMPLATE="..\\templates\\postman\\postman_collection.json"
+OUT_POSTMAN_TEMPLATE="..\\out\\postman\\"
 
 #print sql script
 outputTables=readDesign(DESIGN_FILE_NAME,DDL_FILE_NAME)
@@ -44,7 +48,6 @@ if TARGET_API_LANGUAGE_EXTENSION == "py":
 
 elif TARGET_API_LANGUAGE_EXTENSION == "java":
     PACKAGE_NAME=os.getenv('PACKAGE').replace('.','\\')
-    BASE_TEMPLATE="..\\templates\\%s\\"%(TARGET_API_LANGUAGE_EXTENSION)
     #BASE_API="..\\out\\api\\%s\\%s\\src\\main\\"%(TARGET_API_LANGUAGE_EXTENSION,OUTPUT_FOLDER)
     BASE_API="..\\out\\api\\%s\\%s\\"%(TARGET_API_LANGUAGE_EXTENSION,OUTPUT_FOLDER)
     
@@ -111,7 +114,9 @@ elif TARGET_API_LANGUAGE_EXTENSION == "java":
     "genericResponse": {"template":GEN_RESPONSE_TEMPLATE_FILE_NAME,"target":GEN_RESPONSE_API_FILE_NAME},
     "responseMapper": {"template":RESPONSE_MAPPER_TEMPLATE_FILE_NAME,"target":RESPONSE_MAPPER_API_FILE_NAME}
     }
-    prepareJavaAPI(
-        obj,
-        outputTables,
-    )
+    prepareJavaAPI(obj,outputTables)
+
+#Create Postman
+for table in outputTables:
+    copyfile(POSTMAN_TEMPLATE, OUT_POSTMAN_TEMPLATE+table["table"]+".json")
+    replaceJava(OUT_POSTMAN_TEMPLATE+table["table"]+".json",table)
