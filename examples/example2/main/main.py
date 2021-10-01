@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 from uda_uml_parser import *
 from uda_database import *
 from uda_api import *
-from uda_postman_parser import *
 from shutil import copyfile
 import settings
 
@@ -23,6 +22,12 @@ BASE_TEMPLATE="..\\templates\\%s\\"%(TARGET_API_LANGUAGE_EXTENSION)
 POSTMAN_TEMPLATE="..\\templates\\postman\\postman_collection.json"
 OUT_POSTMAN_TEMPLATE="..\\out\\postman\\"
 
+if not os.path.exists(OUT_POSTMAN_TEMPLATE):
+    os.makedirs(OUT_POSTMAN_TEMPLATE)
+if not os.path.exists("..\\out\\ddl\\"):
+    os.makedirs("..\\out\\ddl\\")
+if not os.path.exists("..\\out\\api\\%s\\"%(TARGET_API_LANGUAGE_EXTENSION)):
+    os.makedirs("..\\out\\api\\%s\\"%(TARGET_API_LANGUAGE_EXTENSION))
 #print sql script
 outputTables=readDesign(DESIGN_FILE_NAME,DDL_FILE_NAME)
 
