@@ -61,7 +61,7 @@ In initital phase, my target is running a python script that creates a running a
     > pip install python-dotenv
 
 # Run the engine
-- Navigate to examples/example2/main and execute main.py using any python ide
+- Navigate to examples/UDA/main and execute main.py using any python ide
 
 # Run the API (Python)
 - Navigate to python path or add the python path to the environment variables and run this command  

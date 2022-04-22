@@ -53,7 +53,6 @@ if TARGET_API_LANGUAGE_EXTENSION == "py":
 
 elif TARGET_API_LANGUAGE_EXTENSION == "java":
     PACKAGE_NAME=os.getenv('PACKAGE').replace('.','\\')
-    #BASE_API="..\\out\\api\\%s\\%s\\src\\main\\"%(TARGET_API_LANGUAGE_EXTENSION,OUTPUT_FOLDER)
     BASE_API="..\\out\\api\\%s\\%s\\"%(TARGET_API_LANGUAGE_EXTENSION,OUTPUT_FOLDER)
     
     POM_TEMPLATE_FILE_PATH=BASE_TEMPLATE+"pom.xml"
