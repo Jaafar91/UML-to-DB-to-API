@@ -1,6 +1,4 @@
-examples/*/out/api/
-examples/*/out/ddl/
-examples/*/out/postman/
+examples/*/out/
 __pycache__/
 .vscode/
 .idea/
