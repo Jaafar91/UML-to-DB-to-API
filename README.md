@@ -34,7 +34,7 @@ In initital phase, my target is running a python script that creates a running a
 - The docker folder has ready image to run SQL Server that matches the connection string
 
 # UML file
-- Each table should start with word `enitity`
+- Each table should start with word `entity`
 - The format of each column is `column_name: data type`
 - The primary key column name starts with `*`
 - The foreign key column name starts with `**`
@@ -49,6 +49,8 @@ In initital phase, my target is running a python script that creates a running a
   date_of_birth: date
 }
 ```
+# Engine Background
+- The engine is created by python, so the execution will be in python, some libraries needs to be added before executing.
 
 # Python Libraries
 - pyodbc library
@@ -57,6 +59,9 @@ In initital phase, my target is running a python script that creates a running a
 
 - python-dotenv
     > pip install python-dotenv
+
+# Run the engine
+- Navigate to examples/example2/main and execute main.py using any python ide
 
 # Run the API (Python)
 - Navigate to python path or add the python path to the environment variables and run this command  

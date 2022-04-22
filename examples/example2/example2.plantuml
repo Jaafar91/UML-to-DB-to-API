@@ -6,7 +6,7 @@ entity employee{
   last_name :     varchar(100)
   full_name:      varchar(100)
   date_of_birth:  date
-  active:         boolean
+  active:         bit
   **department_id   int
 }
 

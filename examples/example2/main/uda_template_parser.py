@@ -68,6 +68,10 @@ def replaceJava(path,table):
         if line.find("${MODEL_COLUMNS}") > -1:
             modelLines=[]
             for col in table['cols']:
+                print(table)
+                print(col["dataType"])
+                if col["dataType"] == "bit":
+                    col["dataType"] = "Boolean"
                 modelLines.append("private %s %s;"%(convertDatabaseDataTypeToJaveDateType(col["dataType"]),col["name"]))
             
             line=line.replace("${MODEL_COLUMNS}","\n\n\t".join(modelLines))    
